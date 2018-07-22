@@ -1,0 +1,44 @@
+{
+  "name": "react-canvas-renderer",
+  "version": "1.0.0",
+  "description": "Custom React to canvas renderer",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "./node_modules/.bin/tsc",
+    "test": "mocha -r ts-node/register test/**/*-test.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ampersandtech/ReactCanvasRenderer.git"
+  },
+  "keywords": [
+    "quark",
+    "react",
+    "atomic css"
+  ],
+  "author": "Ampersand Technologies, Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ampersandtech/ReactCanvasRenderer/issues"
+  },
+  "homepage": "https://github.com/ampersandtech/ReactCanvasRenderer#readme",
+  "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/color": "^3.0.0",
+    "@types/mocha": "^5.2.5",
+    "@types/react": "~16.0.0",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "react": "~16.0.0",
+    "ts-node": "^7.0.0",
+    "typescript": "^2.9.2"
+  },
+  "dependencies": {
+    "color": "^3.0.0",
+    "react-reconciler": "^0.12.0"
+  },
+  "peerDependencies": {
+    "react": "~16.0.0"
+  }
+}
