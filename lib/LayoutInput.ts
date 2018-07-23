@@ -2,7 +2,8 @@
 * Copyright 2018-present Ampersand Technologies, Inc.
 */
 
-import * as Util from 'overlib/client/clientUtil';
+import * as ObjUtils from 'amper-utils/dist2017/objUtils';
+import * as EventUtils from 'EventUtils';
 
 export interface InputProps {
   getSelectedText?: () => string;
@@ -49,7 +50,7 @@ export class LayoutInput {
   }
 
   public setProps(props: any) {
-    if (Util.isObject(props)) {
+    if (ObjUtils.isObject(props)) {
       this.props = props;
     }
   }
@@ -71,37 +72,37 @@ export class LayoutInput {
   }
 
   private handleKeyDown = (e: KeyboardEvent) => {
-    Util.eatEvent(e);
+    EventUtils.eatEvent(e);
 
     this.props.onKeyDown && this.props.onKeyDown(e);
   }
 
   private handleKeyUp = (e: KeyboardEvent) => {
-    Util.eatEvent(e);
+    EventUtils.eatEvent(e);
     this.props.onKeyUp && this.props.onKeyUp(e);
     this.restoreSelection();
   }
 
   private handleKeyPress = (e: KeyboardEvent) => {
-    Util.eatEvent(e);
+    EventUtils.eatEvent(e);
     this.props.onKeyPress && this.props.onKeyPress(e);
     this.restoreSelection();
   }
 
   private handleBlur = (e: FocusEvent) => {
-    Util.eatEvent(e);
+    EventUtils.eatEvent(e);
     this.props.onBlur && this.props.onBlur();
   }
 
   private handleCut = (e: ClipboardEvent) => {
-    Util.eatEvent(e);
+    EventUtils.eatEvent(e);
 
     this.handleCopy(e);
     this.deleteSelection(e);
   }
 
   private handleCopy = (e: ClipboardEvent) => {
-    Util.eatEvent(e);
+    EventUtils.eatEvent(e);
 
     const clipboardData = e.clipboardData || (window as any).clipboardData;
     if (clipboardData) {
@@ -111,7 +112,7 @@ export class LayoutInput {
   }
 
   private handlePaste = (e: ClipboardEvent) => {
-    Util.eatEvent(e);
+    EventUtils.eatEvent(e);
     this.restoreSelection();
 
     if (!e || !e.clipboardData || !e.clipboardData.getData || !e.clipboardData.items || !e.clipboardData.items.length) {
@@ -126,7 +127,7 @@ export class LayoutInput {
   }
 
   private deleteSelection = (e: Event) => {
-    Util.eatEvent(e);
+    EventUtils.eatEvent(e);
 
     if (this.inputElem.textContent === '') {
       this.props.deleteSelection && this.props.deleteSelection();

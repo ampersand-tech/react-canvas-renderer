@@ -2,10 +2,10 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
-import * as EventUtils from 'amper-utils/dist2017/eventUtils';
 import * as MathUtils from 'amper-utils/dist2017/mathUtils';
 import { ScreenSpacePoint, Vector } from 'amper-utils/dist2017/mathUtils';
 import { Stash, StashOf } from 'amper-utils/dist2017/types';
+import * as EventUtils from 'EventUtils';
 import { ClickFunction, NotifyStateFunction } from 'LayoutTypes';
 import { MomentumScroller } from 'MomentumScroller';
 import * as React from 'react';
