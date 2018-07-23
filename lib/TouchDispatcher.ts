@@ -2,14 +2,14 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
-import { ClickFunction, NotifyStateFunction } from './LayoutTypes';
-import { MomentumScroller } from './MomentumScroller';
-import { SwipeHandler } from './SwipeHandler';
-
-import * as Util from 'overlib/client/clientUtil';
-import * as MathUtil from 'overlib/shared/mathUtil';
-import { ScreenSpacePoint, Vector } from 'overlib/shared/mathUtil';
+import * as EventUtils from 'amper-utils/dist2017/eventUtils';
+import * as MathUtils from 'amper-utils/dist2017/mathUtils';
+import { ScreenSpacePoint, Vector } from 'amper-utils/dist2017/mathUtils';
+import { Stash, StashOf } from 'amper-utils/dist2017/types';
+import { ClickFunction, NotifyStateFunction } from 'LayoutTypes';
+import { MomentumScroller } from 'MomentumScroller';
 import * as React from 'react';
+import { SwipeHandler } from 'SwipeHandler';
 
 const SCROLL_DIST_SQR = 25;
 //const HIGHLIGHT_TOUCH_DELAY = 350;
@@ -61,7 +61,7 @@ export function getTouches(e: TouchLikeEvent) {
       } as ScreenSpacePoint;
     }
   } else {
-    touchesOut['mouse'] = (Util.eventPageX(e) || { x: 0, y: 0 }) as ScreenSpacePoint;
+    touchesOut['mouse'] = (EventUtils.eventPageX(e) || { x: 0, y: 0 }) as ScreenSpacePoint;
   }
   return touchesOut;
 }
@@ -150,7 +150,7 @@ class TouchEventState {
     this.accumulatedMovement.x += this.curDelta.x;
     this.accumulatedMovement.y += this.curDelta.y;
 
-    if (MathUtil.lengthSqrd(this.accumulatedMovement) > CLICK_DIST_SQR) {
+    if (MathUtils.lengthSqrd(this.accumulatedMovement) > CLICK_DIST_SQR) {
       this.shouldClick = false;
     }
   }
@@ -256,7 +256,7 @@ export class TouchDispatcher {
       console.debug('touchMove', {
         event: loggableEvent(e),
       });
-      Util.eatEvent(e);
+      EventUtils.eatEvent(e);
       return;
     }
 
@@ -267,12 +267,12 @@ export class TouchDispatcher {
       curPos: curTouch.getCurPos(),
     });
 
-    const distTreshold: boolean = MathUtil.lengthSqrd(curTouch.accumulatedMovement) > SCROLL_DIST_SQR;
+    const distTreshold: boolean = MathUtils.lengthSqrd(curTouch.accumulatedMovement) > SCROLL_DIST_SQR;
     if (!distTreshold && curTouch.longPressTimer) {
       console.debug('touchMove', {
         event: loggableEvent(e),
       });
-      Util.eatEvent(e);
+      EventUtils.eatEvent(e);
       return;
     }
 
@@ -318,7 +318,7 @@ export class TouchDispatcher {
       console.debug('touchEnd', {
         event: loggableEvent(e),
       });
-      Util.eatEvent(e);
+      EventUtils.eatEvent(e);
       return;
     }
 
@@ -343,7 +343,7 @@ export class TouchDispatcher {
 
       if (curTouch.shouldClick) {
         const now = Date.now();
-        if (now - this.lastTapTime < DOUBLE_TAP_WAIT && MathUtil.distSqrd(this.lastTapPos, endPos) < DOUBLE_TAP_DIST_SQR) {
+        if (now - this.lastTapTime < DOUBLE_TAP_WAIT && MathUtils.distSqrd(this.lastTapPos, endPos) < DOUBLE_TAP_DIST_SQR) {
           metricAction = 'doubleClick';
           if (curTouch.onDoubleClick) {
             curTouch.onDoubleClick(startPos);
@@ -390,7 +390,7 @@ export class TouchDispatcher {
       endY: endPos.y,
       time: Date.now() - curTouch.startTime,
     });
-    Util.eatEvent(e);
+    EventUtils.eatEvent(e);
   }
 
   public onWheel = (e: React.WheelEvent<any>) => {

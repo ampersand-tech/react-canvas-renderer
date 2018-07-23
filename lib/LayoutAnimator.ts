@@ -2,14 +2,14 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
-import * as CanvasRenderer from './CanvasRenderer';
-import { LayoutDrawable } from './LayoutDrawable';
-import { LayoutNode } from './LayoutNode';
-import { Dimensions, LayoutDrawableName, LayoutNodeData } from './LayoutTypes';
-
+import * as MathUtils from 'amper-utils/dist2017/mathUtils';
+import { Dimensions } from 'amper-utils/dist2017/mathUtils';
+import { absurd } from 'amper-utils/dist2017/types';
+import * as CanvasRenderer from 'CanvasRenderer';
 import * as color from 'color';
-import * as MathUtil from 'overlib/shared/mathUtil';
-import * as Util from 'overlib/shared/util';
+import { LayoutDrawable } from 'LayoutDrawable';
+import { LayoutNode } from 'LayoutNode';
+import { LayoutDrawableName, LayoutNodeData } from 'LayoutTypes';
 
 let gTimeAccum = 0;
 
@@ -97,7 +97,7 @@ export type AnimationTargetField =
 
 export interface AnimationMotivator {
   source: 'time'|'screenX'|'screenY';
-  easingFunction: MathUtil.EasingFunction;
+  easingFunction: MathUtils.EasingFunction;
   start: number;
   end: number;
   loopPeriod?: number;
@@ -258,11 +258,11 @@ export class LayoutAnimator {
         break;
 
       default:
-        Util.absurd(this.anim.motivator.source);
+        absurd(this.anim.motivator.source);
     }
 
-    const uneasyParam = MathUtil.parameterize(this.anim.motivator.start, this.anim.motivator.end, val);
-    const newParam = MathUtil.interpEaseClamped(this.anim.motivator.easingFunction, 0, 1, uneasyParam);
+    const uneasyParam = MathUtils.parameterize(this.anim.motivator.start, this.anim.motivator.end, val);
+    const newParam = MathUtils.interpEaseClamped(this.anim.motivator.easingFunction, 0, 1, uneasyParam);
     if (newParam === this.param) {
       if (this.anim.motivator.source === 'time' && newParam >= 1 && !this.anim.motivator.loopPeriod) {
         this.target.node.removeAnimation(this);
@@ -287,7 +287,7 @@ export class LayoutAnimator {
     if (typeof origFieldValue === 'number') {
       const start = getModifiedNumber(modifier.start, origFieldValue);
       const end = getModifiedNumber(modifier.end, origFieldValue);
-      return MathUtil.interp(start, end, this.param);
+      return MathUtils.interp(start, end, this.param);
     }
 
     const origColor = color(origFieldValue || 'black');
@@ -333,7 +333,7 @@ export class LayoutAnimator {
 }
 
 export class PositionParent implements TickMotivator {
-  private relativePos: MathUtil.Vector | undefined;
+  private relativePos: MathUtils.Vector | undefined;
 
   constructor(readonly layout: LayoutNodeData, readonly layoutParent: LayoutNode, readonly positionParent: LayoutNode) {
     addTickMotivator(this);
@@ -359,7 +359,7 @@ export class PositionParent implements TickMotivator {
     if (this.layout.localPos.max.height !== undefined) {
       parentPos.y += this.positionParent.getLayoutData().renderDims.height;
     }
-    this.relativePos = MathUtil.vectorSub(parentPos, this.layoutParent.getScreenOffset());
+    this.relativePos = MathUtils.vectorSub(parentPos, this.layoutParent.getScreenOffset());
     return false;
   }
 

@@ -2,11 +2,10 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
-import * as CanvasRenderer from './CanvasRenderer';
-import * as LayoutAnimator from './LayoutAnimator';
-
-import * as MathUtil from 'overlib/shared/mathUtil';
-import { Dimensions, Point, Vector } from 'overlib/shared/mathUtil';
+import * as MathUtils from 'amper-utils/dist2017/mathUtils';
+import { Dimensions, Point, Vector } from 'amper-utils/dist2017/mathUtils';
+import * as CanvasRenderer from 'CanvasRenderer';
+import * as LayoutAnimator from 'LayoutAnimator';
 
 const WHEEL_SCROLL_TIMEOUT = 300;
 const MIN_THROW_SPEED = 0.1;
@@ -43,7 +42,7 @@ interface ScrollTarget {
   endY: number;
   animTime: number;
   accumTime: number;
-  easeFunction: MathUtil.EasingFunction;
+  easeFunction: MathUtils.EasingFunction;
 }
 
 export interface ScrollBounds {
@@ -192,7 +191,7 @@ export class MomentumScroller {
     this.scrollOffset.y = scrollY;
   }
 
-  public setTargetScrollY(scrollY: number, animTime: number, easeFunction: MathUtil.EasingFunction, navMetric?: string) {
+  public setTargetScrollY(scrollY: number, animTime: number, easeFunction: MathUtils.EasingFunction, navMetric?: string) {
     if (Math.abs(this.scrollOffset.y - scrollY) < 1) {
       return;
     }
@@ -242,7 +241,7 @@ export class MomentumScroller {
     this.updateScrollable();
 
     const scaleFactor = this.props.getScaleFactor ? this.props.getScaleFactor() : 1;
-    const diff = MathUtil.vectorMulScalar(dragDiff, -1 / scaleFactor);
+    const diff = MathUtils.vectorMulScalar(dragDiff, -1 / scaleFactor);
     if (!this.scrollableX) {
       diff.x = 0;
     }
@@ -250,7 +249,7 @@ export class MomentumScroller {
       diff.y = 0;
     }
 
-    const newScroll = MathUtil.vectorAdd(this.scrollOffset, diff);
+    const newScroll = MathUtils.vectorAdd(this.scrollOffset, diff);
 
     this.prevTouchMoveVelocity.x = this.velocity.x;
     this.prevTouchMoveVelocity.y = this.velocity.y;
@@ -272,7 +271,7 @@ export class MomentumScroller {
     }
 
     if (this.scrollOffset.x !== newScroll.x || this.scrollOffset.y !== newScroll.y) {
-      this.delta = MathUtil.vectorSub(newScroll, this.scrollOffset);
+      this.delta = MathUtils.vectorSub(newScroll, this.scrollOffset);
       this.scrollOffset = newScroll;
       this.startScrolling('nav.scroll');
       this.fireEvent('scroll');
@@ -285,7 +284,7 @@ export class MomentumScroller {
   public applyWheelDiff(wheelDiff: Readonly<Vector>) {
     const { scrollBounds, containerSize } = this.updateScrollable();
     const scaleFactor = this.props.getScaleFactor ? this.props.getScaleFactor() : 1;
-    const diff = MathUtil.vectorMulScalar(wheelDiff, 1 / scaleFactor);
+    const diff = MathUtils.vectorMulScalar(wheelDiff, 1 / scaleFactor);
     if (!this.scrollableX) {
       diff.x = 0;
     }
@@ -293,7 +292,7 @@ export class MomentumScroller {
       diff.y = 0;
     }
 
-    this.scrollOffset = MathUtil.vectorAdd(this.scrollOffset, diff);
+    this.scrollOffset = MathUtils.vectorAdd(this.scrollOffset, diff);
     this.delta = diff;
     this.velocity.x = this.velocity.y = 0;
     this.target = undefined;
@@ -336,11 +335,11 @@ export class MomentumScroller {
 
     if (this.target) {
       this.target.accumTime += dt;
-      const p = MathUtil.parameterize(0, this.target.animTime, this.target.accumTime);
-      const oldOffset = MathUtil.clone(this.scrollOffset);
-      this.scrollOffset.x = MathUtil.interpEaseClamped(this.target.easeFunction, this.target.startX, this.target.endX, p);
-      this.scrollOffset.y = MathUtil.interpEaseClamped(this.target.easeFunction, this.target.startY, this.target.endY, p);
-      this.delta = MathUtil.vectorSub(this.scrollOffset, oldOffset);
+      const p = MathUtils.parameterize(0, this.target.animTime, this.target.accumTime);
+      const oldOffset = MathUtils.clone(this.scrollOffset);
+      this.scrollOffset.x = MathUtils.interpEaseClamped(this.target.easeFunction, this.target.startX, this.target.endX, p);
+      this.scrollOffset.y = MathUtils.interpEaseClamped(this.target.easeFunction, this.target.startY, this.target.endY, p);
+      this.delta = MathUtils.vectorSub(this.scrollOffset, oldOffset);
       this.velocity.x = this.velocity.y = 0;
       if (this.target.accumTime >= this.target.animTime) {
         this.target = undefined;
@@ -379,7 +378,7 @@ export class MomentumScroller {
         }
       }
 
-      if (!MathUtil.lengthSqrd(diff) && !MathUtil.lengthSqrd(this.velocity)) {
+      if (!MathUtils.lengthSqrd(diff) && !MathUtils.lengthSqrd(this.velocity)) {
         this.hasMomentum = false;
         this.stopScrolling();
         return false;
@@ -393,12 +392,12 @@ export class MomentumScroller {
       }
 
       const timeDiff = Math.min(dt, MAX_TIMESTEP);
-      const newOffset = MathUtil.vectorAdd(this.scrollOffset, diff, MathUtil.vectorMulScalar(newVel, timeDiff)); // simple euler integration for now
-      let reduction = MathUtil.length(newVel) > MAX_VELOCITY ? FAST_REDUCTION : DEFAULT_REDUCTION;
+      const newOffset = MathUtils.vectorAdd(this.scrollOffset, diff, MathUtils.vectorMulScalar(newVel, timeDiff)); // simple euler integration for now
+      let reduction = MathUtils.length(newVel) > MAX_VELOCITY ? FAST_REDUCTION : DEFAULT_REDUCTION;
       if (this.props.getScaleFactor && this.props.getScaleFactor() < 1) {
         reduction = LOCATIONS_REDUCTION;
       }
-      newVel = MathUtil.vectorMulScalar(newVel, Math.pow(reduction, Math.round(timeDiff / 16.7))); // for each frame, reduce by 3%
+      newVel = MathUtils.vectorMulScalar(newVel, Math.pow(reduction, Math.round(timeDiff / 16.7))); // for each frame, reduce by 3%
 
       // Floor the velocity component-wise
       if (Math.abs(newVel.x) < MIN_VELOCITY) {
@@ -408,7 +407,7 @@ export class MomentumScroller {
         newVel.y = 0;
       }
 
-      this.delta = MathUtil.vectorSub(newOffset, this.scrollOffset);
+      this.delta = MathUtils.vectorSub(newOffset, this.scrollOffset);
       this.velocity = newVel;
       this.scrollOffset = newOffset;
     }

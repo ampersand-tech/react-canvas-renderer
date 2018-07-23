@@ -5,17 +5,17 @@
 import {
   AI_LOOKUP,
   Alignment,
-  Dimensions,
   Direction,
   DirectionalLayoutBehavior,
   itemAlignment,
   LayoutConstraints,
   LayoutNodeData,
-} from './LayoutTypes';
+} from 'LayoutTypes';
 
-import { applyConstraints, marginSizeForAxis } from './LayoutNode';
-
-import * as Util from 'overlib/shared/util';
+import { Dimensions } from 'amper-utils/dist2017/mathUtils';
+import * as ObjUtils from 'amper-utils/dist2017/objUtils';
+import { absurd, Stash } from 'amper-utils/dist2017/types';
+import { applyConstraints, marginSizeForAxis } from 'LayoutNode';
 
 enum Justification {
   Center = 1,
@@ -197,8 +197,8 @@ export class FlexLayout extends DirectionalLayoutBehavior {
       }
 
       // layout child
-      const childConstraints = Util.clone(constraints);
-      const itemDims = Util.clone(item.dstDims);
+      const childConstraints = ObjUtils.clone(constraints);
+      const itemDims = ObjUtils.clone(item.dstDims);
       applyConstraints(constraints, itemDims);
       childConstraints.min[this.mainAxis] = childConstraints.max[this.mainAxis] = itemDims[this.mainAxis];
       childConstraints.max[this.crossAxis] = crossAxisAvailable - marginSizeForAxis(child.margin, this.crossAxis, 'total');
@@ -231,7 +231,7 @@ export class FlexLayout extends DirectionalLayoutBehavior {
           break;
 
         default:
-          Util.absurd(alignment);
+          absurd(alignment);
       }
     }
   }

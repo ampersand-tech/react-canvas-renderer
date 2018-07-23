@@ -2,14 +2,15 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
-import { FontManager, FontTable } from './Font';
-import { fontObj2LegitString } from './FontUtils';
-import { LayoutNode, parseShadow } from './LayoutNode';
-import { Dimensions, ImageCoverType, Margins, Point, BorderRadius, Shadow } from './LayoutTypes';
-
-import * as MathUtil from 'overlib/shared/mathUtil';
-import { PathDesc } from 'overlib/shared/svgParser';
-import * as Util from 'overlib/shared/util';
+import * as MathUtils from 'amper-utils/dist2017/mathUtils';
+import { Dimensions, Point } from 'amper-utils/dist2017/mathUtils';
+import * as ObjUtils from 'amper-utils/dist2017/objUtils';
+import { absurd, Stash, StashOf } from 'amper-utils/dist2017/types';
+import { PathDesc } from 'Constants';
+import { FontManager, FontTable } from 'Font';
+import { fontObj2LegitString } from 'FontUtils';
+import { LayoutNode, parseShadow } from 'LayoutNode';
+import { ImageCoverType, Margins, BorderRadius, Shadow } from 'LayoutTypes';
 
 interface PendingLoads<T> {
   data: T | undefined;
@@ -100,7 +101,7 @@ export abstract class LayoutDrawable {
 
   constructor(node: LayoutNode, initParams: Stash) {
     this.node = node;
-    this.initParams = Util.clone(initParams);
+    this.initParams = ObjUtils.clone(initParams);
   }
 
   abstract draw(ctx: CanvasRenderingContext2D, dims: Dimensions, padding: Margins): boolean; // return true if cacheable
@@ -148,7 +149,7 @@ function drawRoundedRect(
       ctx.clip();
       break;
     default:
-      Util.absurd(drawType);
+      absurd(drawType);
       break;
   }
 }
@@ -173,7 +174,7 @@ function styleFromString(
       gradient = ctx.createLinearGradient(left, top, left, bottom);
     } else if (gradType.slice(-3) === 'deg') {
       const deg = parseFloat(gradType.slice(0, -3));
-      const ang = MathUtil.deg2Rad(deg);
+      const ang = MathUtils.deg2Rad(deg);
 
       const width = Math.abs(right - left);
       const height = Math.abs(top - bottom);
@@ -199,7 +200,7 @@ function styleFromString(
       if (result[3] === 'px') {
         const height = Math.abs(top - bottom);
         if (height) {
-          MathUtil.clamp(0, 1, colorStopPercent = colorStopAmount / height);
+          MathUtils.clamp(0, 1, colorStopPercent = colorStopAmount / height);
         } else { // degenerate case
           colorStopPercent = 0;
         }
@@ -408,7 +409,7 @@ export class TextDrawable extends LayoutDrawable {
         break;
 
       default:
-        Util.absurd(fontObj.textDecoration);
+        absurd(fontObj.textDecoration);
     }
 
     // draw decoration
@@ -612,7 +613,7 @@ export class ImageDrawable extends LayoutDrawable {
           break;
 
         default:
-          Util.absurd(this.coverType);
+          absurd(this.coverType);
       }
     }
 

@@ -2,10 +2,9 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
-import * as CanvasRenderer from './CanvasRenderer';
-import * as LayoutAnimator from './LayoutAnimator';
-
-import * as MathUtil from 'overlib/shared/mathUtil';
+import * as MathUtils from 'amper-utils/dist2017/mathUtils';
+import * as CanvasRenderer from 'CanvasRenderer';
+import * as LayoutAnimator from 'LayoutAnimator';
 
 export class SwipeHandler {
   private curScaleFactor = 0;
@@ -43,7 +42,7 @@ export class SwipeHandler {
 
   public onSwipeEnd = (): void => {
     const scaleFactor = this.getScaleFactor();
-    const param = MathUtil.parameterize(this.minScaleFactor, 1.0, scaleFactor);
+    const param = MathUtils.parameterize(this.minScaleFactor, 1.0, scaleFactor);
     if (param < 0.5) {
       this.targetScaleFactor = this.minScaleFactor;
     } else {
@@ -58,7 +57,7 @@ export class SwipeHandler {
     }
     const scaleFactor = this.getScaleFactor();
     const diff = this.targetScaleFactor - scaleFactor;
-    const frameDelta = MathUtil.sign(diff) * this.scaleFactorVelocity * dt;
+    const frameDelta = MathUtils.sign(diff) * this.scaleFactorVelocity * dt;
     if (Math.abs(frameDelta) > Math.abs(diff)) {
       this.setScaleFactor(this.targetScaleFactor);
       this.targetScaleFactor = null;

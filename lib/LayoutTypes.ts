@@ -2,10 +2,10 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
-import { FontDesc, defaultFontDesc } from './Font';
-import { LayoutNode } from './LayoutNode';
-
-import { Dimensions, Point, ScreenSpacePoint } from 'overlib/shared/mathUtil';
+import { Dimensions, Point, ScreenSpacePoint } from 'amper-utils/dist2017/mathUtils';
+import { Stash } from 'amper-utils/dist2017/types';
+import { FontDesc, defaultFontDesc } from 'Font';
+import { LayoutNode } from 'LayoutNode';
 
 export type LayoutDrawableName = 'svg'|'img'|'border'|'backgroundColor'|'backgroundImage';
 

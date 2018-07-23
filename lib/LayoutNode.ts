@@ -9,14 +9,13 @@ import {
   LayoutDrawable,
   SVGDrawable,
   TextDrawable,
-} from './LayoutDrawable';
+} from 'LayoutDrawable';
 
 import {
   Alignment,
   AS_LOOKUP,
   Axis,
   ClickFunction,
-  Dimensions,
   LayoutBehavior,
   LayoutConstraints,
   LayoutDrawableName,
@@ -24,22 +23,23 @@ import {
   LayoutParent,
   Margins,
   OptDimensions,
-  Point,
-} from './LayoutTypes';
+} from 'LayoutTypes';
 
-import { defaultFontDesc } from './Font';
-import { FontStyle, FontWeight, TextDecoration, VerticalAlign } from './FontUtils';
-import { AnimationDef, LayoutAnimator, PositionParent } from './LayoutAnimator';
-import { LayoutInput } from './LayoutInput';
-import * as LayoutRenderer from './LayoutRenderer';
-import { BorderRadius, Shadow } from './LayoutTypes';
-import { MomentumScroller, ScrollBounds } from './MomentumScroller';
-
+import * as JsonUtils from 'amper-utils/dist2017/jsonUtils';
+import * as MathUtils from 'amper-utils/dist2017/mathUtils';
+import { Dimensions, Point } from 'amper-utils/dist2017/mathUtils';
+import * as ObjUtils from 'amper-utils/dist2017/objUtils';
+import { absurd, Stash, StashOf } from 'amper-utils/dist2017/types';
 import * as md5 from 'blueimp-md5';
-import * as Util from 'overlib/client/clientUtil';
-import * as DomClassManager from 'overlib/client/domClassManager';
-import * as Constants from 'overlib/shared/constants';
-import * as MathUtil from 'overlib/shared/mathUtil';
+import * as Constants from 'Constants';
+import { defaultFontDesc } from 'Font';
+import { FontStyle, FontWeight, TextDecoration, VerticalAlign } from 'FontUtils';
+import { AnimationDef, LayoutAnimator, PositionParent } from 'LayoutAnimator';
+import { LayoutInput } from 'LayoutInput';
+import * as LayoutRenderer from 'LayoutRenderer';
+import { BorderRadius, Shadow } from 'LayoutTypes';
+import { MomentumScroller, ScrollBounds } from 'MomentumScroller';
+import * as DomClassManager from 'quark-styles';
 
 const SELF_DIRTY = 1 << 0;
 const CHILDREN_DIRTY = 1 << 1;
@@ -137,7 +137,7 @@ export function marginSizeForAxis(margins: Margins, axis: Axis, which: 'start'|'
         return 2 * Math.max(margins.top, margins.bottom);
       }
     default:
-      Util.absurd(which);
+      absurd(which);
       return 0;
   }
 }
@@ -158,7 +158,7 @@ function reconcileDrawables<T>(oldDrawables: T, newDrawables: T): T|undefined {
       // not the same type
       out[key] = newDraw;
       isChanged = true;
-    } else if (!Util.objCmpFast(oldDraw.initParams, newDraw.initParams)) {
+    } else if (!ObjUtils.objCmpFast(oldDraw.initParams, newDraw.initParams)) {
       // different params
       out[key] = newDraw;
       isChanged = true;
@@ -389,7 +389,7 @@ export class LayoutNode implements LayoutParent {
   setStyle(style: StashOf<string>, classNames: string[]) {
     classNames = classNames.sort();
     const classNamesHash = classNames.join(' ');
-    const styleHash = md5(Util.safeStringify(style));
+    const styleHash = md5(JsonUtils.safeStringify(style));
     if (this.styleHash !== styleHash || this.classNamesHash !== classNamesHash) {
       this.styleHash = styleHash;
       this.classNamesHash = classNamesHash;
@@ -503,10 +503,10 @@ export class LayoutNode implements LayoutParent {
       layout.color = style.color;
     }
     if (style.alpha !== undefined) {
-      layout.alpha = MathUtil.clamp(0, 1, parseFloat(style.alpha));
+      layout.alpha = MathUtils.clamp(0, 1, parseFloat(style.alpha));
     }
     if (style.opacity !== undefined) {
-      layout.alpha = layout.alpha * MathUtil.clamp(0, 1, parseFloat(style.opacity));
+      layout.alpha = layout.alpha * MathUtils.clamp(0, 1, parseFloat(style.opacity));
     }
 
     if (style.overflow === 'scroll') {
@@ -597,7 +597,7 @@ export class LayoutNode implements LayoutParent {
     let hasInheritedChange = false;
     let inheritedChanges: StashOf<number> = {};
     for (const key in layout) {
-      if (!Util.objCmpFast(layout[key], this.layout[key])) {
+      if (!ObjUtils.objCmpFast(layout[key], this.layout[key])) {
         isDirty = true;
         // Todo, expand to font and maybe more
         if (key === 'color') {
@@ -691,8 +691,8 @@ export class LayoutNode implements LayoutParent {
   hasDrawables(): boolean {
     return (
       this.contentDrawables.length > 0 ||
-      !Util.safeObjIsEmpty(this.preContentDrawables) ||
-      !Util.safeObjIsEmpty(this.postContentDrawables)
+      !ObjUtils.safeObjIsEmpty(this.preContentDrawables) ||
+      !ObjUtils.safeObjIsEmpty(this.postContentDrawables)
     );
 
   }
@@ -726,7 +726,7 @@ export class LayoutNode implements LayoutParent {
   }
 
   setPadding(padding: Margins) {
-    if (!Util.objCmpFast(padding, this.layout.padding)) {
+    if (!ObjUtils.objCmpFast(padding, this.layout.padding)) {
       this.layout.padding = padding;
       this.setDirty();
     }
@@ -825,7 +825,7 @@ export class LayoutNode implements LayoutParent {
           // we have no more changes to propagate, so we're done
           return;
         }
-        inheritedChanges = Util.clone(inheritedChanges);
+        inheritedChanges = ObjUtils.clone(inheritedChanges);
         for (const prop of changesToRemove) {
           delete inheritedChanges[prop];
         }
@@ -842,11 +842,11 @@ export class LayoutNode implements LayoutParent {
   }
 
   setExternalConstraints(newConstraints: LayoutConstraints) {
-    if (Util.objCmpFast(this.externalConstraints, newConstraints)) {
+    if (ObjUtils.objCmpFast(this.externalConstraints, newConstraints)) {
       // no change
       return;
     }
-    this.externalConstraints = Util.clone(newConstraints);
+    this.externalConstraints = ObjUtils.clone(newConstraints);
     const dims = this.getIntrinsicDims();
     if (isConstraining(this.externalConstraints, dims)
       || dims.width !== this.layout.computedDims.width
@@ -894,7 +894,7 @@ export class LayoutNode implements LayoutParent {
       this.dirtyBits = this.dirtyBits & ~DIMS_DIRTY;
     }
 
-    return Util.clone(this.intrinsicDims);
+    return ObjUtils.clone(this.intrinsicDims);
   }
 
   layoutIfNeeded(force: boolean = false): boolean {
@@ -904,7 +904,7 @@ export class LayoutNode implements LayoutParent {
 
     gDbgCounters.layout++;
 
-    this.layout.computedDims = Util.clone(this.getIntrinsicDims());
+    this.layout.computedDims = ObjUtils.clone(this.getIntrinsicDims());
     applyConstraints(this.externalConstraints, this.layout.computedDims);
 
     // no infinite dimensions!
@@ -915,7 +915,7 @@ export class LayoutNode implements LayoutParent {
       this.layout.computedDims.height = 0;
     }
 
-    Util.copyFields(this.layout.computedDims, this.layout.renderDims);
+    ObjUtils.copyFields(this.layout.computedDims, this.layout.renderDims);
 
     for (const animator of this.animators) {
       if (animator.updateDimensions(this.layout.renderDims)) {
@@ -964,8 +964,8 @@ export class LayoutNode implements LayoutParent {
 
     this.positionParent && this.positionParent.updateForRender();
 
-    const canvasWidth = Math.ceil(this.layout.renderDims.width * Util.PIXEL_RATIO);
-    const canvasHeight = Math.ceil(this.layout.renderDims.height * Util.PIXEL_RATIO);
+    const canvasWidth = Math.ceil(this.layout.renderDims.width * Constants.PIXEL_RATIO);
+    const canvasHeight = Math.ceil(this.layout.renderDims.height * Constants.PIXEL_RATIO);
     if (this.cacheCanvas && (this.cacheCanvas.width !== canvasWidth || this.cacheCanvas.height !== canvasHeight)) {
       // renderDims changed, free cached canvas
       this.cacheCanvas = undefined;
@@ -983,7 +983,7 @@ export class LayoutNode implements LayoutParent {
       if (cacheCtx) {
         cacheCtx.save();
         cacheCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-        cacheCtx.scale(Util.PIXEL_RATIO, Util.PIXEL_RATIO);
+        cacheCtx.scale(Constants.PIXEL_RATIO, Constants.PIXEL_RATIO);
         cacheCtx.globalAlpha = 1;
         cacheCtx.fillStyle = ctx.fillStyle;
         this.cacheDirty = !this.drawInternal(cacheCtx);
@@ -1013,8 +1013,8 @@ export class LayoutNode implements LayoutParent {
         this.cacheCanvas!,
         0,
         0,
-        this.layout.renderDims.width * Util.PIXEL_RATIO,
-        this.layout.renderDims.height * Util.PIXEL_RATIO,
+        this.layout.renderDims.width * Constants.PIXEL_RATIO,
+        this.layout.renderDims.height * Constants.PIXEL_RATIO,
         0,
         0,
         this.layout.renderDims.width,
@@ -1139,7 +1139,7 @@ export class LayoutNode implements LayoutParent {
   }
 
   getScreenOffset(includePadding?: boolean) {
-    const offset = Util.clone(this.layout.computedOffset);
+    const offset = ObjUtils.clone(this.layout.computedOffset);
     offset.x += this.layout.offsetX + (includePadding ? this.layout.padding.left : 0);
     offset.y += this.layout.offsetY + (includePadding ? this.layout.padding.top : 0);
     if (this.scroller) {
@@ -1159,8 +1159,8 @@ export class LayoutNode implements LayoutParent {
 
     const res = {
       type: this.layoutBehavior ? this.layoutBehavior.toString() : 'Node',
-      offset: Util.clone(this.layout.computedOffset),
-      dims: Util.clone(this.layout.renderDims),
+      offset: ObjUtils.clone(this.layout.computedOffset),
+      dims: ObjUtils.clone(this.layout.renderDims),
       children: this.layout.children.map((child) => child.node.getDebugTree()),
     };
     res.offset.x += this.layout.offsetX;
@@ -1230,7 +1230,7 @@ export class LayoutNode implements LayoutParent {
     for (let i = this.layout.children.length - 1; i >= 0; --i) {
       // check if innerSpacePoint is contained within child
       const layout = this.layout.children[i];
-      const offset: Point = Util.clone(layout.computedOffset);
+      const offset: Point = ObjUtils.clone(layout.computedOffset);
       offset.x += layout.offsetX;
       offset.y += layout.offsetY;
       if (

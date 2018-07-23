@@ -2,18 +2,18 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
-import { FlexLayout } from './FlexLayout';
-import { AnimationDef } from './LayoutAnimator';
-import { ImageDrawable, LayoutDrawable, SVGDrawable } from './LayoutDrawable';
-import { LayoutInput } from './LayoutInput';
-import { LayoutNode } from './LayoutNode';
-import { Direction, LayoutParent } from './LayoutTypes';
-import { SimpleLayout } from './SimpleLayout';
-
+import { forceArray } from 'amper-utils/dist2017/arrayUtils';
+import { Stash } from 'amper-utils/dist2017/types';
+import { PathDesc } from 'Constants';
 import * as emptyObject from 'fbjs/lib/emptyObject';
-import * as Util from 'overlib/client/clientUtil';
-import { PathDesc } from 'overlib/shared/svgParser';
+import { FlexLayout } from 'FlexLayout';
+import { AnimationDef } from 'LayoutAnimator';
+import { ImageDrawable, LayoutDrawable, SVGDrawable } from 'LayoutDrawable';
+import { LayoutInput } from 'LayoutInput';
+import { LayoutNode } from 'LayoutNode';
+import { Direction, LayoutParent } from 'LayoutTypes';
 import * as ReactFiberReconciler from 'react-reconciler';
+import { SimpleLayout } from 'SimpleLayout';
 
 let DEBUG = false;
 
@@ -102,7 +102,7 @@ function convertSvgChildren(incChildren?: React.ReactElement<Stash>[] | React.Re
   if (!incChildren) {
     return undefined;
   }
-  const children: React.ReactElement<Stash>[] = Util.forceArray(incChildren);
+  const children: React.ReactElement<Stash>[] = forceArray(incChildren);
   if (!children.length) {
     return undefined;
   }
@@ -240,7 +240,7 @@ const LayoutRenderer = ReactFiberReconciler({
       throw new Error('Scheduling a callback twice is excessive. Instead, keep track of whether the callback has already been scheduled.');
     }
     gScheduledCallback = callback;
-    Util.requestAnimationFrame(flushRendering);
+    requestAnimationFrame(flushRendering);
   },
 
   prepareForCommit(): void {},
@@ -377,12 +377,14 @@ function findFiberForLayoutNode(node: LayoutNode) {
   return node.getRootFiber();
 }
 
-LayoutRenderer.injectIntoDevTools({
-  findFiberByHostInstance: findFiberForLayoutNode,
-  bundleType: process.env.NODE_ENV === 'production' ? 0 : 1,
-  version: RENDERER_VERSION,
-  rendererPackageName: 'LayoutRenderer',
-});
+export function injectIntoDevTools(isProductionMode: boolean) {
+  LayoutRenderer.injectIntoDevTools({
+    findFiberByHostInstance: findFiberForLayoutNode,
+    bundleType: isProductionMode ? 0 : 1,
+    version: RENDERER_VERSION,
+    rendererPackageName: 'LayoutRenderer',
+  });
+}
 
 export function flushRendering() {
   while (gScheduledCallback) {

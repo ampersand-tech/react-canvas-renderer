@@ -2,19 +2,19 @@
 * Copyright 2018-present Ampersand Technologies, Inc.
 */
 
-import * as LayoutAnimator from './LayoutAnimator';
-import { TouchAndScrollHandlers, TouchDispatcher, TouchHandlerTree } from './TouchDispatcher';
-
-import * as Util from 'overlib/client/clientUtil';
-import { Point, ScreenSpacePoint, rectsMatch } from 'overlib/shared/mathUtil';
+import { Point, ScreenSpacePoint, rectsMatch } from 'amper-utils/dist2017/mathUtils';
+import { Stash } from 'amper-utils/dist2017/types';
+import { PIXEL_RATIO } from 'Constants';
+import * as LayoutAnimator from 'LayoutAnimator';
 import * as React from 'react';
+import { TouchAndScrollHandlers, TouchDispatcher, TouchHandlerTree } from 'TouchDispatcher';
 
 const BUFFERING_TIMEOUT = 300; // time to wait after last drawing before updating the buffering (which stalls)
 const MATCH_FRAME_COUNT = 5;
 
 const gRendererList: RenderCanvas[] = [];
 
-let gRAFHandle: Util.AnimFrameUserHandle | undefined;
+let gRAFHandle: any | undefined;
 let gAnimationTimer: number | undefined;
 let gBufferingTimer: number | undefined;
 let gPrevTime = 0;
@@ -68,8 +68,8 @@ export class RenderCanvas extends React.Component<Props, {}> implements TouchHan
       return;
     }
 
-    const newWidth = this.canvas.clientWidth * Util.PIXEL_RATIO;
-    const newHeight = this.canvas.clientHeight * Util.PIXEL_RATIO;
+    const newWidth = this.canvas.clientWidth * PIXEL_RATIO;
+    const newHeight = this.canvas.clientHeight * PIXEL_RATIO;
     if (this.canvas.width !== newWidth || this.canvas.height !== newHeight) {
       this.canvas.width = newWidth;
       this.canvas.height = newHeight;
@@ -216,7 +216,7 @@ export function kickRender() {
   gBufferingTimer = safeCancelTimer(gBufferingTimer);
   if (!gRAFHandle) {
     gPrevTime = gPrevTime || Date.now();
-    gRAFHandle = Util.requestAnimationFrame(renderAll);
+    gRAFHandle = requestAnimationFrame(renderAll);
   }
 }
 
