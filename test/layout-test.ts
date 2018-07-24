@@ -502,7 +502,7 @@ describe('layout-test', function() {
     const root = parseLayout(`
       <FRow classes="p-x-5 p-y-15 ai-fs">
         <Node classes="w-20 h-10 m-y-3"/>
-        <Node classes="fg-1 h-14 m-l-5 m-r-10"/>
+        <Node classes="flxg-1 h-14 m-l-5 m-r-10"/>
         <Node classes="w-22 h-8 m-r-5"/>
       </FRow>
     `);
@@ -535,7 +535,7 @@ describe('layout-test', function() {
     const root = parseLayout(`
       <FCol classes="p-x-5 p-y-15 ai-fs">
         <Node classes="m-3">Hi</Node>
-        <Node classes="fg-1 m-l-5 m-r-10">Be</Node>
+        <Node classes="flxg-1 m-l-5 m-r-10">Be</Node>
         <Node classes="m-r-5">Good</Node>
       </FCol>
     `);
@@ -603,7 +603,7 @@ describe('layout-test', function() {
     const root = parseLayout(`
       <FCol classes="p-x-5 p-y-15 w-n-36 ai-c">
         <Node classes="w-20 h-10"/>
-        <Node classes="w-12 h-14 fg-1"/>
+        <Node classes="w-12 h-14 flxg-1"/>
         <Node classes="w-22 h-8"/>
       </FCol>
     `);
@@ -635,9 +635,9 @@ describe('layout-test', function() {
   it('FlexLayout should layout correctly with ai-s (the default)', function() {
     const root = parseLayout(`
       <FCol classes="w-60 h-50">
-        <Node classes="fg-1"/>
+        <Node classes="flxg-1"/>
         <Node>Hi</Node>
-        <Node classes="fg-1"/>
+        <Node classes="flxg-1"/>
       </FCol>
     `);
     root.setExternalConstraints({ min: {}, max: { width: 80, height: 120 } });
@@ -647,7 +647,7 @@ describe('layout-test', function() {
       offset: { x: 0, y: 0 },
       dims: { width: 60, height: 50 },
       children: [{
-        type: 'Node', // fg-1
+        type: 'Node', // flxg-1
         offset: { x: 0, y: 0 },
         dims: { width: 60, height: 14.5 },
         children: [],
@@ -658,7 +658,7 @@ describe('layout-test', function() {
         text: 'Hi',
         children: [],
       }, {
-        type: 'Node', // fg-1
+        type: 'Node', // flxg-1
         offset: { x: 0, y: 35.5 },
         dims: { width: 60, height: 14.5 },
         children: [],
@@ -669,9 +669,9 @@ describe('layout-test', function() {
   it('FlexLayout should layout correctly with ai-s and a set-width child', function() {
     const root = parseLayout(`
       <FCol classes="w-60 h-50">
-        <Node classes="fg-1"/>
+        <Node classes="flxg-1"/>
         <Node classes="h-10 w-5"/>
-        <Node classes="fg-1"/>
+        <Node classes="flxg-1"/>
       </FCol>
     `);
     root.setExternalConstraints({ min: {}, max: { width: 80, height: 120 } });
@@ -681,7 +681,7 @@ describe('layout-test', function() {
       offset: { x: 0, y: 0 },
       dims: { width: 60, height: 50 },
       children: [{
-        type: 'Node', // fg-1
+        type: 'Node', // flxg-1
         offset: { x: 0, y: 0 },
         dims: { width: 60, height: 20 },
         children: [],
@@ -691,7 +691,7 @@ describe('layout-test', function() {
         dims: { width: 5, height: 10 },
         children: [],
       }, {
-        type: 'Node', // fg-1
+        type: 'Node', // flxg-1
         offset: { x: 0, y: 30 },
         dims: { width: 60, height: 20 },
         children: [],
@@ -702,9 +702,9 @@ describe('layout-test', function() {
   it('FlexLayout should layout correctly with ai-s and as-c', function() {
     const root = parseLayout(`
       <FCol classes="w-60 h-50">
-        <Node classes="fg-1"/>
+        <Node classes="flxg-1"/>
         <Node classes="as-c">Hi</Node>
-        <Node classes="fg-1"/>
+        <Node classes="flxg-1"/>
       </FCol>
     `);
     root.setExternalConstraints({ min: {}, max: { width: 80, height: 120 } });
@@ -714,7 +714,7 @@ describe('layout-test', function() {
       offset: { x: 0, y: 0 },
       dims: { width: 60, height: 50 },
       children: [{
-        type: 'Node', // fg-1
+        type: 'Node', // flxg-1
         offset: { x: 0, y: 0 },
         dims: { width: 60, height: 14.5 },
         children: [],
@@ -725,7 +725,7 @@ describe('layout-test', function() {
         text: 'Hi',
         children: [],
       }, {
-        type: 'Node', // fg-1
+        type: 'Node', // flxg-1
         offset: { x: 0, y: 35.5 },
         dims: { width: 60, height: 14.5 },
         children: [],
@@ -736,9 +736,9 @@ describe('layout-test', function() {
   it('FlexLayout should layout correctly with ai-c', function() {
     const root = parseLayout(`
       <FCol classes="w-60 h-50 ai-c">
-        <Node classes="fg-1 w-10"/>
+        <Node classes="flxg-1 w-10"/>
         <Node classes="w-5 h-10"/>
-        <Node classes="fg-1 w-15"/>
+        <Node classes="flxg-1 w-15"/>
       </FCol>
     `);
     root.setExternalConstraints({ min: {}, max: { width: 80, height: 120 } });
@@ -748,7 +748,7 @@ describe('layout-test', function() {
       offset: { x: 0, y: 0 },
       dims: { width: 60, height: 50 },
       children: [{
-        type: 'Node', // fg-1
+        type: 'Node', // flxg-1
         offset: { x: 25, y: 0 },
         dims: { width: 10, height: 20 },
         children: [],
@@ -758,7 +758,7 @@ describe('layout-test', function() {
         dims: { width: 5, height: 10 },
         children: [],
       }, {
-        type: 'Node', // fg-1
+        type: 'Node', // flxg-1
         offset: { x: 22.5, y: 30 },
         dims: { width: 15, height: 20 },
         children: [],
@@ -770,8 +770,8 @@ describe('layout-test', function() {
     const root = parseLayout(`
       <FCol classes="ai-s">
         <FRow classes="h-50 ai-c">
-          <FCol classes="fg-1 ai-s">
-            <Node classes="fg-1"/>
+          <FCol classes="flxg-1 ai-s">
+            <Node classes="flxg-1"/>
           </FCol>
         </FRow>
       </FCol>
@@ -787,11 +787,11 @@ describe('layout-test', function() {
         offset: { x: 0, y: 0 },
         dims: { width: 80, height: 50 },
         children: [{
-          type: 'FCol', // fg-1 ai-s
+          type: 'FCol', // flxg-1 ai-s
           offset: { x: 0, y: 0 },
           dims: { width: 80, height: 50 },
           children: [{
-            type: 'Node', // fg-1
+            type: 'Node', // flxg-1
             offset: { x: 0, y: 0 },
             dims: { width: 80, height: 50 },
             children: [],
@@ -806,10 +806,10 @@ describe('layout-test', function() {
       <FCol classes="p-x-5 p-y-5">
         <FRow classes="h-x-50 ai-c">
           <Node classes="w-5 h-10"/>
-          <FCol classes="fg-1">
-            <Node classes="fg-1"/>
+          <FCol classes="flxg-1">
+            <Node classes="flxg-1"/>
             <Node classes="h-10"/>
-            <Node classes="fg-1"/>
+            <Node classes="flxg-1"/>
           </FCol>
           <Node classes="w-5 h-10"/>
         </FRow>
@@ -832,11 +832,11 @@ describe('layout-test', function() {
           dims: { width: 5, height: 10 },
           children: [],
         }, {
-          type: 'FCol', // fg-1
+          type: 'FCol', // flxg-1
           offset: { x: 5, y: 0 },
           dims: { width: 60, height: 50 },
           children: [{
-            type: 'Node', // fg-1
+            type: 'Node', // flxg-1
             offset: { x: 0, y: 0 },
             dims: { width: 60, height: 20 },
             children: [],
@@ -846,7 +846,7 @@ describe('layout-test', function() {
             dims: { width: 60, height: 10 },
             children: [],
           }, {
-            type: 'Node', // fg-1
+            type: 'Node', // flxg-1
             offset: { x: 0, y: 30 },
             dims: { width: 60, height: 20 },
             children: [],
@@ -888,11 +888,11 @@ describe('layout-test', function() {
           dims: { width: 5, height: 10 },
           children: [],
         }, {
-          type: 'FCol', // fg-1
+          type: 'FCol', // flxg-1
           offset: { x: 5, y: 0 },
           dims: { width: 60, height: 50 },
           children: [{
-            type: 'Node', // fg-1
+            type: 'Node', // flxg-1
             offset: { x: 0, y: 0 },
             dims: { width: 60, height: 20 },
             children: [],
@@ -902,7 +902,7 @@ describe('layout-test', function() {
             dims: { width: 60, height: 10 },
             children: [],
           }, {
-            type: 'Node', // fg-1
+            type: 'Node', // flxg-1
             offset: { x: 25, y: 30 },
             dims: { width: 10, height: 20 },
             children: [],
@@ -941,11 +941,11 @@ describe('layout-test', function() {
           dims: { width: 5, height: 10 },
           children: [],
         }, {
-          type: 'FCol', // fg-1 ai-s
+          type: 'FCol', // flxg-1 ai-s
           offset: { x: 5, y: 0 },
           dims: { width: 60, height: 50 },
           children: [{
-            type: 'Node', // fg-1
+            type: 'Node', // flxg-1
             offset: { x: 0, y: 0 },
             dims: { width: 60, height: 5 },
             children: [],
@@ -955,7 +955,7 @@ describe('layout-test', function() {
             dims: { width: 60, height: 10 },
             children: [],
           }, {
-            type: 'Node', // fg-1
+            type: 'Node', // flxg-1
             offset: { x: 0, y: 15 },
             dims: { width: 60, height: 35 },
             children: [],
@@ -981,10 +981,10 @@ describe('layout-test', function() {
       <FCol classes="p-15 ai-s c-red-bg" logOnTap="root">
         <FRow classes="h-x-50 ai-c c-#FF0-bg">
           <Node classes="w-25 h-20 c-#F0F-bg" logOnTap="magenta"/>
-          <FCol classes="fg-1 ai-s c-#0FF-bg">
-            <Node classes="fg-1 c-#0F0-bg"/>
+          <FCol classes="flxg-1 ai-s c-#0FF-bg">
+            <Node classes="flxg-1 c-#0F0-bg"/>
             <Node classes="h-30 c-#00F-bg" logOnTap="blue"/>
-            <Node classes="fg-1 c-#0FF-bg" logOnTap="cyan"/>
+            <Node classes="flxg-1 c-#0FF-bg" logOnTap="cyan"/>
           </FCol>
           <Node classes="w-35 h-20"/>
         </FRow>
@@ -1096,7 +1096,7 @@ describe('layout-test', function() {
     const root = parseLayout(`
       <SCol classes="ai-s">
         <Node classes="w-40 h-20"/>
-        <Node classes="bot-0 h-1"/>
+        <Node classes="bottom-0 h-1"/>
       </SCol>
     `);
 
