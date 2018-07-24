@@ -10,11 +10,12 @@ import {
   LayoutConstraints,
   DirectionalLayoutBehavior,
   LayoutNodeData,
-} from 'LayoutTypes';
+} from './LayoutTypes';
+
+import { marginSizeForAxis } from './LayoutNode';
 
 import { Dimensions } from 'amper-utils/dist2017/mathUtils';
 import { absurd, Stash } from 'amper-utils/dist2017/types';
-import { marginSizeForAxis } from 'LayoutNode';
 
 export class SimpleLayout extends DirectionalLayoutBehavior {
   protected alignItems: Alignment = Alignment.Start;

@@ -9,7 +9,7 @@ import {
   LayoutDrawable,
   SVGDrawable,
   TextDrawable,
-} from 'LayoutDrawable';
+} from './LayoutDrawable';
 
 import {
   Alignment,
@@ -23,7 +23,16 @@ import {
   LayoutParent,
   Margins,
   OptDimensions,
-} from 'LayoutTypes';
+} from './LayoutTypes';
+
+import * as Constants from './Constants';
+import { defaultFontDesc } from './Font';
+import { FontStyle, FontWeight, TextDecoration, VerticalAlign } from './FontUtils';
+import { AnimationDef, LayoutAnimator, PositionParent } from './LayoutAnimator';
+import { LayoutInput } from './LayoutInput';
+import * as LayoutRenderer from './LayoutRenderer';
+import { BorderRadius, Shadow } from './LayoutTypes';
+import { MomentumScroller, ScrollBounds } from './MomentumScroller';
 
 import * as JsonUtils from 'amper-utils/dist2017/jsonUtils';
 import * as MathUtils from 'amper-utils/dist2017/mathUtils';
@@ -31,15 +40,7 @@ import { Dimensions, Point } from 'amper-utils/dist2017/mathUtils';
 import * as ObjUtils from 'amper-utils/dist2017/objUtils';
 import { absurd, Stash, StashOf } from 'amper-utils/dist2017/types';
 import * as md5 from 'blueimp-md5';
-import * as Constants from 'Constants';
-import { defaultFontDesc } from 'Font';
-import { FontStyle, FontWeight, TextDecoration, VerticalAlign } from 'FontUtils';
-import { AnimationDef, LayoutAnimator, PositionParent } from 'LayoutAnimator';
-import { LayoutInput } from 'LayoutInput';
-import * as LayoutRenderer from 'LayoutRenderer';
-import { BorderRadius, Shadow } from 'LayoutTypes';
-import { MomentumScroller, ScrollBounds } from 'MomentumScroller';
-import * as DomClassManager from 'quark-styles';
+import * as QuarkStyles from 'quark-styles';
 
 const SELF_DIRTY = 1 << 0;
 const CHILDREN_DIRTY = 1 << 1;
@@ -405,7 +406,7 @@ export class LayoutNode implements LayoutParent {
   private applyPseudoSelectors() {
     let style = this.style;
     for (const className of this.classNames) {
-      style = DomClassManager.applyGlobalClassStyles(style, className, this.pseudoSelectors);
+      style = QuarkStyles.applyGlobalClassStyles(style, className, this.pseudoSelectors);
     }
     this.applyStyle(style);
   }

@@ -13,9 +13,9 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var CanvasRenderer_1 = require("CanvasRenderer");
-var Constants_1 = require("Constants");
-var LayoutRenderer_1 = require("LayoutRenderer");
+var CanvasRenderer_1 = require("./CanvasRenderer");
+var Constants_1 = require("./Constants");
+var LayoutRenderer_1 = require("./LayoutRenderer");
 var React = require("react");
 var CanvasLayoutRenderer = /** @class */ (function (_super) {
     __extends(CanvasLayoutRenderer, _super);

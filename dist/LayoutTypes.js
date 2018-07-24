@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Font_1 = require("Font");
+var Font_1 = require("./Font");
 var Direction;
 (function (Direction) {
     Direction[Direction["Row"] = 1] = "Row";

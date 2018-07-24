@@ -3,8 +3,8 @@
 * Copyright 2018-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+var EventUtils = require("./EventUtils");
 var ObjUtils = require("amper-utils/dist2017/objUtils");
-var EventUtils = require("EventUtils");
 var LayoutInput = /** @class */ (function () {
     function LayoutInput() {
         var _this = this;

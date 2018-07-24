@@ -13,13 +13,13 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var Font_1 = require("./Font");
+var FontUtils_1 = require("./FontUtils");
+var LayoutNode_1 = require("./LayoutNode");
+var LayoutTypes_1 = require("./LayoutTypes");
 var MathUtils = require("amper-utils/dist2017/mathUtils");
 var ObjUtils = require("amper-utils/dist2017/objUtils");
 var types_1 = require("amper-utils/dist2017/types");
-var Font_1 = require("Font");
-var FontUtils_1 = require("FontUtils");
-var LayoutNode_1 = require("LayoutNode");
-var LayoutTypes_1 = require("LayoutTypes");
 var gFontCache = {
     data: undefined,
     nodes: [],

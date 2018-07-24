@@ -2,18 +2,19 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
+import { PathDesc } from './Constants';
+import { FlexLayout } from './FlexLayout';
+import { AnimationDef } from './LayoutAnimator';
+import { ImageDrawable, LayoutDrawable, SVGDrawable } from './LayoutDrawable';
+import { LayoutInput } from './LayoutInput';
+import { LayoutNode } from './LayoutNode';
+import { Direction, LayoutParent } from './LayoutTypes';
+import { SimpleLayout } from './SimpleLayout';
+
 import { forceArray } from 'amper-utils/dist2017/arrayUtils';
 import { Stash } from 'amper-utils/dist2017/types';
-import { PathDesc } from 'Constants';
 import * as emptyObject from 'fbjs/lib/emptyObject';
-import { FlexLayout } from 'FlexLayout';
-import { AnimationDef } from 'LayoutAnimator';
-import { ImageDrawable, LayoutDrawable, SVGDrawable } from 'LayoutDrawable';
-import { LayoutInput } from 'LayoutInput';
-import { LayoutNode } from 'LayoutNode';
-import { Direction, LayoutParent } from 'LayoutTypes';
 import * as ReactFiberReconciler from 'react-reconciler';
-import { SimpleLayout } from 'SimpleLayout';
 
 let DEBUG = false;
 
@@ -423,10 +424,13 @@ export function unmountLayoutNode(node: LayoutNode) {
   LayoutRenderer.updateContainer(null, node.reactFiber, null);
 }
 
-const origGetComputedStyle = window.getComputedStyle;
-window.getComputedStyle = function(elt: Element, pseudoElt?: string): CSSStyleDeclaration {
-  if (elt instanceof LayoutNode) {
-    return elt.getComputedStyle() as CSSStyleDeclaration;
-  }
-  return origGetComputedStyle(elt, pseudoElt);
-};
+try {
+  const origGetComputedStyle = window.getComputedStyle;
+  window.getComputedStyle = function(elt: Element, pseudoElt?: string): CSSStyleDeclaration {
+    if (elt instanceof LayoutNode) {
+      return elt.getComputedStyle() as CSSStyleDeclaration;
+    }
+    return origGetComputedStyle(elt, pseudoElt);
+  };
+} catch (_ex) {
+}

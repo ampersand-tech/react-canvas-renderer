@@ -2,15 +2,16 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
+import { PathDesc } from './Constants';
+import { FontManager, FontTable } from './Font';
+import { fontObj2LegitString } from './FontUtils';
+import { LayoutNode, parseShadow } from './LayoutNode';
+import { ImageCoverType, Margins, BorderRadius, Shadow } from './LayoutTypes';
+
 import * as MathUtils from 'amper-utils/dist2017/mathUtils';
 import { Dimensions, Point } from 'amper-utils/dist2017/mathUtils';
 import * as ObjUtils from 'amper-utils/dist2017/objUtils';
 import { absurd, Stash, StashOf } from 'amper-utils/dist2017/types';
-import { PathDesc } from 'Constants';
-import { FontManager, FontTable } from 'Font';
-import { fontObj2LegitString } from 'FontUtils';
-import { LayoutNode, parseShadow } from 'LayoutNode';
-import { ImageCoverType, Margins, BorderRadius, Shadow } from 'LayoutTypes';
 
 interface PendingLoads<T> {
   data: T | undefined;

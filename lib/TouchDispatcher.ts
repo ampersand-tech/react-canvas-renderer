@@ -2,14 +2,15 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
+import * as EventUtils from './EventUtils';
+import { ClickFunction, NotifyStateFunction } from './LayoutTypes';
+import { MomentumScroller } from './MomentumScroller';
+import { SwipeHandler } from './SwipeHandler';
+
 import * as MathUtils from 'amper-utils/dist2017/mathUtils';
 import { ScreenSpacePoint, Vector } from 'amper-utils/dist2017/mathUtils';
 import { Stash, StashOf } from 'amper-utils/dist2017/types';
-import * as EventUtils from 'EventUtils';
-import { ClickFunction, NotifyStateFunction } from 'LayoutTypes';
-import { MomentumScroller } from 'MomentumScroller';
 import * as React from 'react';
-import { SwipeHandler } from 'SwipeHandler';
 
 const SCROLL_DIST_SQR = 25;
 //const HIGHLIGHT_TOUCH_DELAY = 350;

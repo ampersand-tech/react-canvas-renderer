@@ -2,8 +2,9 @@
 * Copyright 2018-present Ampersand Technologies, Inc.
 */
 
+import * as EventUtils from './EventUtils';
+
 import * as ObjUtils from 'amper-utils/dist2017/objUtils';
-import * as EventUtils from 'EventUtils';
 
 export interface InputProps {
   getSelectedText?: () => string;

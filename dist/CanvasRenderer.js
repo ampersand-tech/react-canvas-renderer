@@ -13,11 +13,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var Constants_1 = require("./Constants");
+var LayoutAnimator = require("./LayoutAnimator");
+var TouchDispatcher_1 = require("./TouchDispatcher");
 var mathUtils_1 = require("amper-utils/dist2017/mathUtils");
-var Constants_1 = require("Constants");
-var LayoutAnimator = require("LayoutAnimator");
 var React = require("react");
-var TouchDispatcher_1 = require("TouchDispatcher");
 var BUFFERING_TIMEOUT = 300; // time to wait after last drawing before updating the buffering (which stalls)
 var MATCH_FRAME_COUNT = 5;
 var gRendererList = [];

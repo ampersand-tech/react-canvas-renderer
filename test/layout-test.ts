@@ -2,15 +2,12 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
-import 'testlib/mochaTestUtils';
-import 'server/tools/clientStub';
-
 import * as Font from '../lib/Font';
 import * as LayoutNode from '../lib/LayoutNode';
 import { parseLayout, setTapCallback } from './SimpleLayoutParser';
 
+import { Point, ScreenSpacePoint } from 'amper-utils/dist2017/mathUtils';
 import { expect } from 'chai';
-import { Point, ScreenSpacePoint } from 'overlib/shared/mathUtil';
 
 Font.test.stubFontLoading();
 

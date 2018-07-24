@@ -2,16 +2,16 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
-import 'overlib/client/domClassManager';
+import 'quark-styles';
 
 import { FlexLayout } from '../lib/FlexLayout';
 import { ImageDrawable, LayoutDrawable, SVGDrawable } from '../lib/LayoutDrawable';
 import { LayoutNode } from '../lib/LayoutNode';
 import { Direction } from '../lib/LayoutTypes';
 import { SimpleLayout } from '../lib/SimpleLayout';
+import { ParseObject, parse } from './xmlParser';
 
-import { classesToSimpleStyle } from 'overlib/client/domClassManager';
-import { ParseObject, parse } from 'overlib/shared/xmlParser';
+import { classesToSimpleStyle } from 'quark-styles';
 
 let gOnTapCallback: undefined | ((str: string) => void);
 

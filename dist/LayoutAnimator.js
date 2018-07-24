@@ -3,11 +3,11 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+var CanvasRenderer = require("./CanvasRenderer");
+var LayoutDrawable_1 = require("./LayoutDrawable");
 var MathUtils = require("amper-utils/dist2017/mathUtils");
 var types_1 = require("amper-utils/dist2017/types");
-var CanvasRenderer = require("CanvasRenderer");
 var color = require("color");
-var LayoutDrawable_1 = require("LayoutDrawable");
 var gTimeAccum = 0;
 var gAnimators = [];
 var gTickMotivators = [];

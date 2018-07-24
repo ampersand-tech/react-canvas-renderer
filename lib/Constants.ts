@@ -12,8 +12,11 @@ export interface PathDesc {
 }
 
 export let PIXEL_RATIO = 1;
-if ('devicePixelRatio' in window && window.devicePixelRatio > 1) {
-  PIXEL_RATIO = window.devicePixelRatio;
+try {
+  if ('devicePixelRatio' in window && window.devicePixelRatio > 1) {
+    PIXEL_RATIO = window.devicePixelRatio;
+  }
+} catch (_ex) {
 }
 
 export const TREE_WALKER_CB_RESULT = Object.freeze({

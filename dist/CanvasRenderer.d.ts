@@ -1,10 +1,10 @@
 /**
 * Copyright 2018-present Ampersand Technologies, Inc.
 */
+import { TouchAndScrollHandlers, TouchHandlerTree } from './TouchDispatcher';
 import { Point, ScreenSpacePoint } from 'amper-utils/dist2017/mathUtils';
 import { Stash } from 'amper-utils/dist2017/types';
 import * as React from 'react';
-import { TouchAndScrollHandlers, TouchHandlerTree } from 'TouchDispatcher';
 interface Props {
     drawFunc: (ctx: CanvasRenderingContext2D, width: number, height: number) => boolean;
     classes?: string;

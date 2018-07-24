@@ -1,11 +1,11 @@
 /**
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
+import { LayoutDrawable } from './LayoutDrawable';
+import { LayoutNode } from './LayoutNode';
+import { LayoutDrawableName, LayoutNodeData } from './LayoutTypes';
 import * as MathUtils from 'amper-utils/dist2017/mathUtils';
 import { Dimensions } from 'amper-utils/dist2017/mathUtils';
-import { LayoutDrawable } from 'LayoutDrawable';
-import { LayoutNode } from 'LayoutNode';
-import { LayoutDrawableName, LayoutNodeData } from 'LayoutTypes';
 interface TickMotivator {
     tick: (dt: number) => boolean;
 }

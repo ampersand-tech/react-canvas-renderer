@@ -3,15 +3,15 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+var FlexLayout_1 = require("./FlexLayout");
+var LayoutDrawable_1 = require("./LayoutDrawable");
+var LayoutInput_1 = require("./LayoutInput");
+var LayoutNode_1 = require("./LayoutNode");
+var LayoutTypes_1 = require("./LayoutTypes");
+var SimpleLayout_1 = require("./SimpleLayout");
 var arrayUtils_1 = require("amper-utils/dist2017/arrayUtils");
 var emptyObject = require("fbjs/lib/emptyObject");
-var FlexLayout_1 = require("FlexLayout");
-var LayoutDrawable_1 = require("LayoutDrawable");
-var LayoutInput_1 = require("LayoutInput");
-var LayoutNode_1 = require("LayoutNode");
-var LayoutTypes_1 = require("LayoutTypes");
 var ReactFiberReconciler = require("react-reconciler");
-var SimpleLayout_1 = require("SimpleLayout");
 var DEBUG = false;
 var RENDERER_VERSION = '1.0';
 var UPDATE_SIGNAL = {};
@@ -348,10 +348,14 @@ function unmountLayoutNode(node) {
     LayoutRenderer.updateContainer(null, node.reactFiber, null);
 }
 exports.unmountLayoutNode = unmountLayoutNode;
-var origGetComputedStyle = window.getComputedStyle;
-window.getComputedStyle = function (elt, pseudoElt) {
-    if (elt instanceof LayoutNode_1.LayoutNode) {
-        return elt.getComputedStyle();
-    }
-    return origGetComputedStyle(elt, pseudoElt);
-};
+try {
+    var origGetComputedStyle_1 = window.getComputedStyle;
+    window.getComputedStyle = function (elt, pseudoElt) {
+        if (elt instanceof LayoutNode_1.LayoutNode) {
+            return elt.getComputedStyle();
+        }
+        return origGetComputedStyle_1(elt, pseudoElt);
+    };
+}
+catch (_ex) {
+}

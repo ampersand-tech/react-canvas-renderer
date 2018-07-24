@@ -2,14 +2,15 @@
 * Copyright 2018-present Ampersand Technologies, Inc.
 */
 
+import { RenderCanvas, kickRender } from './CanvasRenderer';
+import { PIXEL_RATIO } from './Constants';
+import { LayoutNode } from './LayoutNode';
+import { renderToLayout } from './LayoutRenderer';
+import { LayoutParent } from './LayoutTypes';
+import { TouchAndScrollHandlers } from './TouchDispatcher';
+
 import { Point } from 'amper-utils/dist2017/mathUtils';
-import { RenderCanvas, kickRender } from 'CanvasRenderer';
-import { PIXEL_RATIO } from 'Constants';
-import { LayoutNode } from 'LayoutNode';
-import { renderToLayout } from 'LayoutRenderer';
-import { LayoutParent } from 'LayoutTypes';
 import * as React from 'react';
-import { TouchAndScrollHandlers } from 'TouchDispatcher';
 
 
 interface Props {

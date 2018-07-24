@@ -2,12 +2,13 @@
 * Copyright 2018-present Ampersand Technologies, Inc.
 */
 
+import { PIXEL_RATIO } from './Constants';
+import * as LayoutAnimator from './LayoutAnimator';
+import { TouchAndScrollHandlers, TouchDispatcher, TouchHandlerTree } from './TouchDispatcher';
+
 import { Point, ScreenSpacePoint, rectsMatch } from 'amper-utils/dist2017/mathUtils';
 import { Stash } from 'amper-utils/dist2017/types';
-import { PIXEL_RATIO } from 'Constants';
-import * as LayoutAnimator from 'LayoutAnimator';
 import * as React from 'react';
-import { TouchAndScrollHandlers, TouchDispatcher, TouchHandlerTree } from 'TouchDispatcher';
 
 const BUFFERING_TIMEOUT = 300; // time to wait after last drawing before updating the buffering (which stalls)
 const MATCH_FRAME_COUNT = 5;

@@ -3,9 +3,9 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+var CanvasRenderer = require("./CanvasRenderer");
+var LayoutAnimator = require("./LayoutAnimator");
 var MathUtils = require("amper-utils/dist2017/mathUtils");
-var CanvasRenderer = require("CanvasRenderer");
-var LayoutAnimator = require("LayoutAnimator");
 var SwipeHandler = /** @class */ (function () {
     function SwipeHandler(getScaleFactor, setScaleFactor, minScaleFactor, scaleFactorVelocity) {
         var _this = this;

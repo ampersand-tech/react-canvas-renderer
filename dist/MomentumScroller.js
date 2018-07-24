@@ -3,9 +3,9 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+var CanvasRenderer = require("./CanvasRenderer");
+var LayoutAnimator = require("./LayoutAnimator");
 var MathUtils = require("amper-utils/dist2017/mathUtils");
-var CanvasRenderer = require("CanvasRenderer");
-var LayoutAnimator = require("LayoutAnimator");
 var WHEEL_SCROLL_TIMEOUT = 300;
 var MIN_THROW_SPEED = 0.1;
 var MAX_THROW_SPEED = 3.0;

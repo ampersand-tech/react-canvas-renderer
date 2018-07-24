@@ -1,8 +1,8 @@
 /**
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
+import * as FontUtils from './FontUtils';
 import { StashOf } from 'amper-utils/dist2017/types';
-import * as FontUtils from 'FontUtils';
 export interface FontTable {
     names: string[];
     styles: string[];

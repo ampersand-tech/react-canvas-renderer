@@ -2,9 +2,10 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
+import * as CanvasRenderer from './CanvasRenderer';
+import * as LayoutAnimator from './LayoutAnimator';
+
 import * as MathUtils from 'amper-utils/dist2017/mathUtils';
-import * as CanvasRenderer from 'CanvasRenderer';
-import * as LayoutAnimator from 'LayoutAnimator';
 
 export class SwipeHandler {
   private curScaleFactor = 0;

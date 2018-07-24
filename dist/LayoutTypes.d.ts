@@ -1,10 +1,10 @@
 /**
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
+import { FontDesc } from './Font';
+import { LayoutNode } from './LayoutNode';
 import { Dimensions, Point, ScreenSpacePoint } from 'amper-utils/dist2017/mathUtils';
 import { Stash } from 'amper-utils/dist2017/types';
-import { FontDesc } from 'Font';
-import { LayoutNode } from 'LayoutNode';
 export declare type LayoutDrawableName = 'svg' | 'img' | 'border' | 'backgroundColor' | 'backgroundImage';
 export interface OptDimensions {
     width?: number;

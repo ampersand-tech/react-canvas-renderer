@@ -1,13 +1,13 @@
 /**
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
+import { ClickFunction, NotifyStateFunction } from './LayoutTypes';
+import { MomentumScroller } from './MomentumScroller';
+import { SwipeHandler } from './SwipeHandler';
 import * as MathUtils from 'amper-utils/dist2017/mathUtils';
 import { ScreenSpacePoint } from 'amper-utils/dist2017/mathUtils';
 import { Stash, StashOf } from 'amper-utils/dist2017/types';
-import { ClickFunction, NotifyStateFunction } from 'LayoutTypes';
-import { MomentumScroller } from 'MomentumScroller';
 import * as React from 'react';
-import { SwipeHandler } from 'SwipeHandler';
 export interface TouchAndScrollHandlers {
     scrollHandler?: MomentumScroller;
     touchHandler?: TouchHandler;

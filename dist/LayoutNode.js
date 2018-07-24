@@ -3,19 +3,19 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
-var LayoutDrawable_1 = require("LayoutDrawable");
-var LayoutTypes_1 = require("LayoutTypes");
+var LayoutDrawable_1 = require("./LayoutDrawable");
+var LayoutTypes_1 = require("./LayoutTypes");
+var Constants = require("./Constants");
+var Font_1 = require("./Font");
+var LayoutAnimator_1 = require("./LayoutAnimator");
+var LayoutRenderer = require("./LayoutRenderer");
+var MomentumScroller_1 = require("./MomentumScroller");
 var JsonUtils = require("amper-utils/dist2017/jsonUtils");
 var MathUtils = require("amper-utils/dist2017/mathUtils");
 var ObjUtils = require("amper-utils/dist2017/objUtils");
 var types_1 = require("amper-utils/dist2017/types");
 var md5 = require("blueimp-md5");
-var Constants = require("Constants");
-var Font_1 = require("Font");
-var LayoutAnimator_1 = require("LayoutAnimator");
-var LayoutRenderer = require("LayoutRenderer");
-var MomentumScroller_1 = require("MomentumScroller");
-var DomClassManager = require("quark-styles");
+var QuarkStyles = require("quark-styles");
 var SELF_DIRTY = 1 << 0;
 var CHILDREN_DIRTY = 1 << 1;
 var DIMS_DIRTY = 1 << 2;
@@ -387,7 +387,7 @@ var LayoutNode = /** @class */ (function () {
         var style = this.style;
         for (var _i = 0, _a = this.classNames; _i < _a.length; _i++) {
             var className = _a[_i];
-            style = DomClassManager.applyGlobalClassStyles(style, className, this.pseudoSelectors);
+            style = QuarkStyles.applyGlobalClassStyles(style, className, this.pseudoSelectors);
         }
         this.applyStyle(style);
     };

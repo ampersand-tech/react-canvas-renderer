@@ -1,16 +1,16 @@
 /**
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
-import { LayoutDrawable } from 'LayoutDrawable';
-import { Axis, ClickFunction, LayoutBehavior, LayoutConstraints, LayoutDrawableName, LayoutNodeData, LayoutParent, Margins } from 'LayoutTypes';
+import { LayoutDrawable } from './LayoutDrawable';
+import { Axis, ClickFunction, LayoutBehavior, LayoutConstraints, LayoutDrawableName, LayoutNodeData, LayoutParent, Margins } from './LayoutTypes';
+import * as Constants from './Constants';
+import { AnimationDef, LayoutAnimator } from './LayoutAnimator';
+import { LayoutInput } from './LayoutInput';
+import { Shadow } from './LayoutTypes';
+import { MomentumScroller } from './MomentumScroller';
 import * as MathUtils from 'amper-utils/dist2017/mathUtils';
 import { Dimensions, Point } from 'amper-utils/dist2017/mathUtils';
 import { Stash, StashOf } from 'amper-utils/dist2017/types';
-import * as Constants from 'Constants';
-import { AnimationDef, LayoutAnimator } from 'LayoutAnimator';
-import { LayoutInput } from 'LayoutInput';
-import { Shadow } from 'LayoutTypes';
-import { MomentumScroller } from 'MomentumScroller';
 export declare function applyConstraints(constraints: LayoutConstraints, dims: Dimensions): void;
 export declare function parseShadow(shadowStr: string, isTextShadow: boolean): Shadow;
 export declare function marginSizeForAxis(margins: Margins, axis: Axis, which: 'start' | 'end' | 'total' | 'max2'): number;

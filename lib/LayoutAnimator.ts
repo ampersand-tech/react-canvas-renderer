@@ -2,14 +2,15 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
+import * as CanvasRenderer from './CanvasRenderer';
+import { LayoutDrawable } from './LayoutDrawable';
+import { LayoutNode } from './LayoutNode';
+import { LayoutDrawableName, LayoutNodeData } from './LayoutTypes';
+
 import * as MathUtils from 'amper-utils/dist2017/mathUtils';
 import { Dimensions } from 'amper-utils/dist2017/mathUtils';
 import { absurd } from 'amper-utils/dist2017/types';
-import * as CanvasRenderer from 'CanvasRenderer';
 import * as color from 'color';
-import { LayoutDrawable } from 'LayoutDrawable';
-import { LayoutNode } from 'LayoutNode';
-import { LayoutDrawableName, LayoutNodeData } from 'LayoutTypes';
 
 let gTimeAccum = 0;
 
