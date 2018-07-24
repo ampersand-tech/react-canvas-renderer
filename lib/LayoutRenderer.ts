@@ -15,6 +15,7 @@ import { forceArray } from 'amper-utils/dist2017/arrayUtils';
 import { Stash } from 'amper-utils/dist2017/types';
 import * as emptyObject from 'fbjs/lib/emptyObject';
 import * as ReactFiberReconciler from 'react-reconciler';
+import * as SafeRaf from 'safe-raf';
 
 let DEBUG = false;
 
@@ -241,7 +242,7 @@ const LayoutRenderer = ReactFiberReconciler({
       throw new Error('Scheduling a callback twice is excessive. Instead, keep track of whether the callback has already been scheduled.');
     }
     gScheduledCallback = callback;
-    requestAnimationFrame(flushRendering);
+    SafeRaf.requestAnimationFrame(flushRendering);
   },
 
   prepareForCommit(): void {},

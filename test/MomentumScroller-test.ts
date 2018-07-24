@@ -43,42 +43,66 @@ describe('MomentumScroller-test', () => {
     scroller.setTargetScrollY(20, 3000, 'easeInQuad');
     const ret = scroller.tick(0);
     expect(ret).to.equal(true);
-    expect(eventsFired.shift()).to.equal({
-      name: 'scroll',
+    expect(eventsFired.shift()).to.deep.equal({
+      name: 'scrollStart',
       data: {
+        metric: '',
         scrollX: 0,
         scrollY: 0,
         deltaX: 0,
         deltaY: 0,
       },
     });
+    expect(eventsFired.shift()).to.deep.equal({
+      name: 'scroll',
+      data: {
+        metric: '',
+        scrollX: 0,
+        scrollY: 0,
+        deltaX: 0,
+        deltaY: 0,
+      },
+    });
+    expect(eventsFired.length).to.equal(0);
   });
   it('should stop scrolling when velocity becomes 0', () => {
     scroller.setTargetScrollY(20, 1000, 'easeInQuad');
-    debugger;
     const ret = scroller.tick(1000);
     expect(ret).to.equal(true);
-    expect(eventsFired.shift()).to.equal({
+    expect(eventsFired.shift()).to.deep.equal({
+      name: 'scrollStart',
+      data: {
+        metric: '',
+        scrollX: 0,
+        scrollY: 0,
+        deltaX: 0,
+        deltaY: 0,
+      },
+    });
+    expect(eventsFired.shift()).to.deep.equal({
       name: 'scroll',
       data: {
+        metric: '',
         scrollX: 0,
         scrollY: 20,
         deltaX: 0,
         deltaY: 20,
       },
     });
+    expect(eventsFired.length).to.equal(0);
     const ret2 = scroller.tick(1001);
     expect(ret2).to.equal(false);
-    expect(eventsFired.length).to.equal(2);
-    expect(eventsFired.shift()).to.equal({
-      name: 'scroll',
+    expect(eventsFired.shift()).to.deep.equal({
+      name: 'scrollStop',
       data: {
+        metric: '',
         scrollX: 0,
         scrollY: 20,
         deltaX: 0,
         deltaY: 0,
       },
     });
+    expect(eventsFired.length).to.equal(0);
   });
   it('should not set a scroll target when change is tiny', () => {
     scroller.setTargetScrollY(0.5, 3000, 'easeInQuad');

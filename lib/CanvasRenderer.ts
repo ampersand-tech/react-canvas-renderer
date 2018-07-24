@@ -9,6 +9,7 @@ import { TouchAndScrollHandlers, TouchDispatcher, TouchHandlerTree } from './Tou
 import { Point, ScreenSpacePoint, rectsMatch } from 'amper-utils/dist2017/mathUtils';
 import { Stash } from 'amper-utils/dist2017/types';
 import * as React from 'react';
+import * as SafeRaf from 'safe-raf';
 
 const BUFFERING_TIMEOUT = 300; // time to wait after last drawing before updating the buffering (which stalls)
 const MATCH_FRAME_COUNT = 5;
@@ -86,13 +87,13 @@ export class RenderCanvas extends React.Component<Props, {}> implements TouchHan
     const r = this.canvas.getBoundingClientRect();
     if (rectsMatch(this.boundingRect, r)) {
       if (matchingFrameCount < MATCH_FRAME_COUNT) {
-        requestAnimationFrame(() => this.updateBoundingRect(matchingFrameCount + 1));
+        SafeRaf.requestAnimationFrame(() => this.updateBoundingRect(matchingFrameCount + 1));
       } else {
         this.updateCanvasRenderSize();
       }
     } else {
       this.boundingRect = r;
-      requestAnimationFrame(() => this.updateBoundingRect(0));
+      SafeRaf.requestAnimationFrame(() => this.updateBoundingRect(0));
     }
   }
 
@@ -217,7 +218,7 @@ export function kickRender() {
   gBufferingTimer = safeCancelTimer(gBufferingTimer);
   if (!gRAFHandle) {
     gPrevTime = gPrevTime || Date.now();
-    gRAFHandle = requestAnimationFrame(renderAll);
+    gRAFHandle = SafeRaf.requestAnimationFrame(renderAll);
   }
 }
 

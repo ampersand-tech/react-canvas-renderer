@@ -36,11 +36,12 @@
     "xml2js": "^0.4.19"
   },
   "dependencies": {
-    "amper-utils": "git+ssh://git@github.com/ampersandtech/utils.git",
+    "amper-utils": "git+ssh://git@github.com:ampersandtech/utils.git",
     "blueimp-md5": "^2.10.0",
     "color": "^3.0.0",
     "quark-styles": "git+ssh://git@github.com:ampersandtech/quark-styles.git",
-    "react-reconciler": "^0.12.0"
+    "react-reconciler": "^0.12.0",
+    "safe-raf": "git+ssh://git@github.com:ampersandtech/safe-raf.git"
   },
   "peerDependencies": {
     "react": "~16.0.0"
