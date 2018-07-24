@@ -2,6 +2,8 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
+import 'quark-styles';
+
 import * as Font from '../lib/Font';
 import * as LayoutNode from '../lib/LayoutNode';
 import { parseLayout, setTapCallback } from './SimpleLayoutParser';

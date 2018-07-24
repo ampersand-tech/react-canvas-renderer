@@ -2,8 +2,6 @@
  * Copyright 2017-present Ampersand Technologies, Inc.
  */
 
-import 'server/tools/setupFakeBrowser.ts';
-
 import { MomentumScroller, ScrollBounds, ScrollEvent, ScrollEventData } from '../lib/MomentumScroller';
 
 import { Dimensions } from 'amper-utils/dist2017/mathUtils';
@@ -25,7 +23,7 @@ const CONTAINER_SIZE : Dimensions = {
 
 describe('MomentumScroller-test', () => {
   let scroller;
-  let eventsFired = [];
+  let eventsFired: any[] = [];
   beforeEach(() => {
     eventsFired = [];
     let fireEvent = (name: ScrollEvent, data: ScrollEventData) => {

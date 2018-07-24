@@ -2,8 +2,6 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
-import 'quark-styles';
-
 import { FlexLayout } from '../lib/FlexLayout';
 import { ImageDrawable, LayoutDrawable, SVGDrawable } from '../lib/LayoutDrawable';
 import { LayoutNode } from '../lib/LayoutNode';
