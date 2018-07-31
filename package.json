@@ -13,9 +13,9 @@
     "url": "git+https://github.com/ampersandtech/react-canvas-renderer.git"
   },
   "keywords": [
-    "quark",
+    "canvas",
     "react",
-    "atomic css"
+    "custom renderer"
   ],
   "author": "Ampersand Technologies, Inc.",
   "license": "MIT",
