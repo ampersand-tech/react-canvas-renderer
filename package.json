@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ampersandtech/ReactCanvasRenderer.git"
+    "url": "git+https://github.com/ampersandtech/react-canvas-renderer.git"
   },
   "keywords": [
     "quark",
@@ -20,9 +20,9 @@
   "author": "Ampersand Technologies, Inc.",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ampersandtech/ReactCanvasRenderer/issues"
+    "url": "https://github.com/ampersandtech/react-canvas-renderer/issues"
   },
-  "homepage": "https://github.com/ampersandtech/ReactCanvasRenderer#readme",
+  "homepage": "https://github.com/ampersandtech/react-canvas-renderer#readme",
   "devDependencies": {
     "@types/chai": "^4.1.4",
     "@types/color": "^3.0.0",
