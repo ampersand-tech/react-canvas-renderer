@@ -4,7 +4,7 @@
 
 import * as EventUtils from './EventUtils';
 import { ClickFunction, NotifyStateFunction } from './LayoutTypes';
-import { MomentumScroller } from './MomentumScroller';
+import { MomentumScroller, TouchLikeEvent } from './MomentumScroller';
 import { SwipeHandler } from './SwipeHandler';
 
 import * as MathUtils from 'amper-utils/dist2017/mathUtils';
@@ -46,8 +46,6 @@ export interface TouchHandler {
   onTouchEnd?: (e: TouchLikeEvent) => void;
   onWheel?: (e: React.WheelEvent<any>) => void;
 }
-
-export type TouchLikeEvent = React.TouchEvent<any> | React.MouseEvent<any>;
 
 // guaranteed to return at least 1 ScreenSpacePoint
 export function getTouches(e: TouchLikeEvent) {

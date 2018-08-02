@@ -2,7 +2,7 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 import { ClickFunction, NotifyStateFunction } from './LayoutTypes';
-import { MomentumScroller } from './MomentumScroller';
+import { MomentumScroller, TouchLikeEvent } from './MomentumScroller';
 import { SwipeHandler } from './SwipeHandler';
 import * as MathUtils from 'amper-utils/dist2017/mathUtils';
 import { ScreenSpacePoint } from 'amper-utils/dist2017/mathUtils';
@@ -27,7 +27,6 @@ export interface TouchHandler {
     onTouchEnd?: (e: TouchLikeEvent) => void;
     onWheel?: (e: React.WheelEvent<any>) => void;
 }
-export declare type TouchLikeEvent = React.TouchEvent<any> | React.MouseEvent<any>;
 export declare function getTouches(e: TouchLikeEvent): StashOf<MathUtils.ScreenSpacePoint>;
 export declare class TouchDispatcher {
     private handlerTree;
@@ -37,8 +36,8 @@ export declare class TouchDispatcher {
     constructor(handler: TouchHandlerTree);
     private shouldSwipe;
     private handleLongPress;
-    touchStart: (e: import("MomentumScroller").TouchLikeEvent) => void;
-    touchMove: (e: import("MomentumScroller").TouchLikeEvent) => void;
-    touchEnd: (e: import("MomentumScroller").TouchLikeEvent) => void;
+    touchStart: (e: TouchLikeEvent) => void;
+    touchMove: (e: TouchLikeEvent) => void;
+    touchEnd: (e: TouchLikeEvent) => void;
     onWheel: (e: React.WheelEvent<any>) => void;
 }

@@ -29,17 +29,7 @@ export declare class RenderCanvas extends React.Component<Props, {}> implements 
     onBuffering(): void;
     getTouchAndScrollHandlersAt(screenSpacePoint: ScreenSpacePoint): TouchAndScrollHandlers;
     recordMetric(metricName: string, metricDims?: Stash): void;
-    render(): React.DetailedReactHTMLElement<{
-        ref: (canvas: HTMLCanvasElement | null) => void;
-        style: {
-            touchAction: string;
-        };
-        classes: string | undefined;
-        onTouchOrMouseStart: (e: import("MomentumScroller").TouchLikeEvent) => void;
-        onTouchOrMouseMove: (e: import("MomentumScroller").TouchLikeEvent) => void;
-        onTouchOrMouseEnd: (e: import("MomentumScroller").TouchLikeEvent) => void;
-        onWheel: (e: React.WheelEvent<any>) => void;
-    }, HTMLCanvasElement>;
+    render(): JSX.Element;
 }
 export declare function kickRender(): void;
 export declare function flushAnimations(): void;

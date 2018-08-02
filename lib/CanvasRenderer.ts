@@ -154,7 +154,7 @@ export class RenderCanvas extends React.Component<Props, {}> implements TouchHan
       onTouchOrMouseMove: this.touchDispatcher.touchMove,
       onTouchOrMouseEnd: this.touchDispatcher.touchEnd,
       onWheel: this.touchDispatcher.onWheel,
-    });
+    }) as JSX.Element;
   }
 }
 
