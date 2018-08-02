@@ -4,6 +4,7 @@
 import { LayoutDrawable } from './LayoutDrawable';
 import { Axis, ClickFunction, LayoutBehavior, LayoutConstraints, LayoutDrawableName, LayoutNodeData, LayoutParent, Margins } from './LayoutTypes';
 import * as Constants from './Constants';
+import { FontDesc } from './Font';
 import { AnimationDef, LayoutAnimator } from './LayoutAnimator';
 import { LayoutInput } from './LayoutInput';
 import { Shadow } from './LayoutTypes';
@@ -77,7 +78,7 @@ export declare class LayoutNode implements LayoutParent {
     getParent(): LayoutParent | undefined;
     getParentNode(): LayoutNode | undefined;
     getLayoutData(): LayoutNodeData;
-    getFontDesc(): import("Font").FontDesc;
+    getFontDesc(): FontDesc;
     getScrollHandler: () => MomentumScroller | undefined;
     private getChildBounds;
     private getDimensions;

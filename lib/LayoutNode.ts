@@ -26,7 +26,7 @@ import {
 } from './LayoutTypes';
 
 import * as Constants from './Constants';
-import { defaultFontDesc } from './Font';
+import { FontDesc, defaultFontDesc } from './Font';
 import { FontStyle, FontWeight, TextDecoration, VerticalAlign } from './FontUtils';
 import { AnimationDef, LayoutAnimator, PositionParent } from './LayoutAnimator';
 import { LayoutInput } from './LayoutInput';
@@ -767,7 +767,7 @@ export class LayoutNode implements LayoutParent {
     return this.layout;
   }
 
-  getFontDesc() {
+  getFontDesc(): FontDesc {
     return this.layout.fontDesc;
   }
 
