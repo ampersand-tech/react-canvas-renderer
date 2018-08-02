@@ -18,6 +18,7 @@ var LayoutAnimator = require("./LayoutAnimator");
 var TouchDispatcher_1 = require("./TouchDispatcher");
 var mathUtils_1 = require("amper-utils/dist2017/mathUtils");
 var React = require("react");
+var SafeRaf = require("safe-raf");
 var BUFFERING_TIMEOUT = 300; // time to wait after last drawing before updating the buffering (which stalls)
 var MATCH_FRAME_COUNT = 5;
 var gRendererList = [];
@@ -50,7 +51,7 @@ var RenderCanvas = /** @class */ (function (_super) {
             var r = _this.canvas.getBoundingClientRect();
             if (mathUtils_1.rectsMatch(_this.boundingRect, r)) {
                 if (matchingFrameCount < MATCH_FRAME_COUNT) {
-                    requestAnimationFrame(function () { return _this.updateBoundingRect(matchingFrameCount + 1); });
+                    SafeRaf.requestAnimationFrame(function () { return _this.updateBoundingRect(matchingFrameCount + 1); });
                 }
                 else {
                     _this.updateCanvasRenderSize();
@@ -58,7 +59,7 @@ var RenderCanvas = /** @class */ (function (_super) {
             }
             else {
                 _this.boundingRect = r;
-                requestAnimationFrame(function () { return _this.updateBoundingRect(0); });
+                SafeRaf.requestAnimationFrame(function () { return _this.updateBoundingRect(0); });
             }
         };
         _this.touchDispatcher = new TouchDispatcher_1.TouchDispatcher(_this);
@@ -195,7 +196,7 @@ function kickRender() {
     gBufferingTimer = safeCancelTimer(gBufferingTimer);
     if (!gRAFHandle) {
         gPrevTime = gPrevTime || Date.now();
-        gRAFHandle = requestAnimationFrame(renderAll);
+        gRAFHandle = SafeRaf.requestAnimationFrame(renderAll);
     }
 }
 exports.kickRender = kickRender;

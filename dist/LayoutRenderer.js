@@ -12,6 +12,7 @@ var SimpleLayout_1 = require("./SimpleLayout");
 var arrayUtils_1 = require("amper-utils/dist2017/arrayUtils");
 var emptyObject = require("fbjs/lib/emptyObject");
 var ReactFiberReconciler = require("react-reconciler");
+var SafeRaf = require("safe-raf");
 var DEBUG = false;
 var RENDERER_VERSION = '1.0';
 var UPDATE_SIGNAL = {};
@@ -196,7 +197,7 @@ var LayoutRenderer = ReactFiberReconciler({
             throw new Error('Scheduling a callback twice is excessive. Instead, keep track of whether the callback has already been scheduled.');
         }
         gScheduledCallback = callback;
-        requestAnimationFrame(flushRendering);
+        SafeRaf.requestAnimationFrame(flushRendering);
     },
     prepareForCommit: function () { },
     resetAfterCommit: function () { },
