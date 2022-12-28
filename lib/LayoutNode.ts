@@ -1263,22 +1263,19 @@ export class LayoutNode implements LayoutParent {
 
   // for React devtools, pretend to be a DOMNode
   readonly nodeType = 1;
-  public getBoundingClientRect(): ClientRect {
+  public getBoundingClientRect(): DOMRect {
     this.layoutTreeIfNeeded();
 
     const offset = this.getScreenOffset();
 
-    const rect: ClientRect = {
-      left: offset.x,
-      top: offset.y,
-      right: offset.x + this.layout.renderDims.width,
-      bottom: offset.y + this.layout.renderDims.height,
-      width: this.layout.renderDims.width,
-      height: this.layout.renderDims.height,
-    };
+    const rect = new DOMRect();
+    rect.x = offset.x;
+    rect.y = offset.y;
+    rect.width = this.layout.renderDims.width;
+    rect.height = this.layout.renderDims.height;
     return rect;
   }
-  public getClientRects(): ClientRect[] {
+  public getClientRects(): DOMRect[] {
     return [this.getBoundingClientRect()];
   }
   public getComputedStyle(): Stash {

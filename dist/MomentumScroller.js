@@ -3,6 +3,7 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MomentumScroller = void 0;
 var CanvasRenderer = require("./CanvasRenderer");
 var LayoutAnimator = require("./LayoutAnimator");
 var MathUtils = require("amper-utils/dist/mathUtils");

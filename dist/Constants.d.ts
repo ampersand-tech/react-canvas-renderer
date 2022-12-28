@@ -1,7 +1,7 @@
 /**
 * Copyright 2018-present Ampersand Technologies, Inc.
 */
-declare type FillRuleType = 'nonzero' | 'evenodd';
+type FillRuleType = 'nonzero' | 'evenodd';
 export interface PathDesc {
     path: string;
     strokeWidth?: string;
@@ -14,5 +14,5 @@ export declare const TREE_WALKER_CB_RESULT: Readonly<{
     DONT_DESCEND: TreeWalkerCBResult;
     DONE: TreeWalkerCBResult;
 }>;
-export declare type TreeWalkerCBResult = 'continue' | 'dont_descend' | 'done';
+export type TreeWalkerCBResult = 'continue' | 'dont_descend' | 'done';
 export {};

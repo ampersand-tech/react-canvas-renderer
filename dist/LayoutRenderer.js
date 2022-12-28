@@ -3,6 +3,7 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.unmountLayoutNode = exports.renderToLayout = exports.flushRendering = exports.injectIntoDevTools = void 0;
 var FlexLayout_1 = require("./FlexLayout");
 var LayoutDrawable_1 = require("./LayoutDrawable");
 var LayoutInput_1 = require("./LayoutInput");
@@ -10,7 +11,6 @@ var LayoutNode_1 = require("./LayoutNode");
 var LayoutTypes_1 = require("./LayoutTypes");
 var SimpleLayout_1 = require("./SimpleLayout");
 var arrayUtils_1 = require("amper-utils/dist/arrayUtils");
-var emptyObject = require("fbjs/lib/emptyObject");
 var ReactFiberReconciler = require("react-reconciler");
 var SafeRaf = require("safe-raf");
 var DEBUG = false;
@@ -93,7 +93,7 @@ function convertSvgChildren(incChildren) {
     if (!incChildren) {
         return undefined;
     }
-    var children = arrayUtils_1.forceArray(incChildren);
+    var children = (0, arrayUtils_1.forceArray)(incChildren);
     if (!children.length) {
         return undefined;
     }
@@ -174,10 +174,10 @@ var LayoutRenderer = ReactFiberReconciler({
         return false;
     },
     getRootHostContext: function () {
-        return emptyObject;
+        return {};
     },
     getChildHostContext: function () {
-        return emptyObject;
+        return {};
     },
     getPublicInstance: function (instance) {
         return instance;

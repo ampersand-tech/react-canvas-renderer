@@ -3,6 +3,7 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TouchDispatcher = exports.getTouches = void 0;
 var EventUtils = require("./EventUtils");
 var MathUtils = require("amper-utils/dist/mathUtils");
 var SCROLL_DIST_SQR = 25;

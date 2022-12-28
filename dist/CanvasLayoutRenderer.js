@@ -3,16 +3,22 @@
 * Copyright 2018-present Ampersand Technologies, Inc.
 */
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CanvasLayoutRenderer = void 0;
 var CanvasRenderer_1 = require("./CanvasRenderer");
 var Constants_1 = require("./Constants");
 var LayoutRenderer_1 = require("./LayoutRenderer");
@@ -100,11 +106,11 @@ var CanvasLayoutRenderer = /** @class */ (function (_super) {
     CanvasLayoutRenderer.prototype.renderLayout = function () {
         var child = React.Children.only(this.props.children);
         if (child) {
-            this.layoutRoot = LayoutRenderer_1.renderToLayout(this.layoutRoot, child, this);
+            this.layoutRoot = (0, LayoutRenderer_1.renderToLayout)(this.layoutRoot, child, this);
         }
     };
     CanvasLayoutRenderer.prototype.childIsDirty = function (_child) {
-        CanvasRenderer_1.kickRender();
+        (0, CanvasRenderer_1.kickRender)();
     };
     CanvasLayoutRenderer.prototype.layoutIfNeeded = function () {
         if (!this.layoutRoot) {

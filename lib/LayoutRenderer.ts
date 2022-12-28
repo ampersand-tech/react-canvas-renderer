@@ -13,9 +13,9 @@ import { SimpleLayout } from './SimpleLayout';
 
 import { forceArray } from 'amper-utils/dist/arrayUtils';
 import { Stash } from 'amper-utils/dist/types';
-import * as emptyObject from 'fbjs/lib/emptyObject';
 import * as ReactFiberReconciler from 'react-reconciler';
 import * as SafeRaf from 'safe-raf';
+import React = require('react');
 
 let DEBUG = false;
 
@@ -210,11 +210,11 @@ const LayoutRenderer = ReactFiberReconciler({
   },
 
   getRootHostContext() {
-    return emptyObject;
+    return {};
   },
 
   getChildHostContext() {
-    return emptyObject;
+    return {};
   },
 
   getPublicInstance(instance) {
@@ -402,7 +402,7 @@ export function flushRendering() {
 
 export function renderToLayout(
   rootNode: LayoutNode | undefined,
-  rootElement: JSX.Element,
+  rootElement: React.ReactNode,
   parentNode?: LayoutParent,
   dataProps?: Stash,
 ): LayoutNode {

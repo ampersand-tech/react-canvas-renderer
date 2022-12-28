@@ -3,16 +3,22 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.itemAlignment = exports.DirectionalLayoutBehavior = exports.LayoutBehavior = exports.LayoutNodeData = exports.AS_LOOKUP = exports.AI_LOOKUP = exports.ImageCoverType = exports.Alignment = exports.PosEntry = exports.Axis = exports.Direction = void 0;
 var Font_1 = require("./Font");
 var Direction;
 (function (Direction) {
@@ -67,7 +73,7 @@ var LayoutNodeData = /** @class */ (function () {
         this.alignSelf = Alignment.Auto;
         this.color = '';
         this.alpha = 1;
-        this.fontDesc = Font_1.defaultFontDesc();
+        this.fontDesc = (0, Font_1.defaultFontDesc)();
         this.pointerEvents = 'auto';
         this.overflowX = '';
         this.overflowY = '';

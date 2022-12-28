@@ -97,9 +97,9 @@ export declare class LayoutNode implements LayoutParent {
     getChild(path: number[]): LayoutNode | undefined;
     readonly walkDownTree: (cb: (node: LayoutNode) => Constants.TreeWalkerCBResult) => any;
     getLeafTouchableNodeAt(layoutSpacePoint: Point): LayoutNode | undefined;
-    readonly nodeType: number;
-    getBoundingClientRect(): ClientRect;
-    getClientRects(): ClientRect[];
+    readonly nodeType = 1;
+    getBoundingClientRect(): DOMRect;
+    getClientRects(): DOMRect[];
     getComputedStyle(): Stash;
     getCanvas(): HTMLCanvasElement | undefined;
     isAnimatingLayout(): boolean;

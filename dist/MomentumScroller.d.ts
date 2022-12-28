@@ -4,8 +4,8 @@
 /// <reference types="react" />
 import * as MathUtils from 'amper-utils/dist/mathUtils';
 import { Dimensions, Vector } from 'amper-utils/dist/mathUtils';
-export declare type ScrollEvent = 'scrollStart' | 'scroll' | 'scrollStop';
-export declare type TouchLikeEvent = React.TouchEvent<any> | React.MouseEvent<any>;
+export type ScrollEvent = 'scrollStart' | 'scroll' | 'scrollStop';
+export type TouchLikeEvent = React.TouchEvent<any> | React.MouseEvent<any>;
 export interface ScrollEventData {
     scrollX: number;
     scrollY: number;
