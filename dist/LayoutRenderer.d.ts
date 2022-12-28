@@ -4,7 +4,7 @@
 /// <reference types="react" />
 import { LayoutNode } from './LayoutNode';
 import { LayoutParent } from './LayoutTypes';
-import { Stash } from 'amper-utils/dist2017/types';
+import { Stash } from 'amper-utils/dist/types';
 export declare function injectIntoDevTools(isProductionMode: boolean): void;
 export declare function flushRendering(): void;
 export declare function renderToLayout(rootNode: LayoutNode | undefined, rootElement: JSX.Element, parentNode?: LayoutParent, dataProps?: Stash): LayoutNode;

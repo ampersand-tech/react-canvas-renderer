@@ -6,8 +6,8 @@ import { PIXEL_RATIO } from './Constants';
 import * as LayoutAnimator from './LayoutAnimator';
 import { TouchAndScrollHandlers, TouchDispatcher, TouchHandlerTree } from './TouchDispatcher';
 
-import { Point, ScreenSpacePoint, rectsMatch } from 'amper-utils/dist2017/mathUtils';
-import { Stash } from 'amper-utils/dist2017/types';
+import { Point, ScreenSpacePoint, rectsMatch } from 'amper-utils/dist/mathUtils';
+import { Stash } from 'amper-utils/dist/types';
 import * as React from 'react';
 import * as SafeRaf from 'safe-raf';
 

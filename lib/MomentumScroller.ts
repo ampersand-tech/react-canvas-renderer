@@ -5,8 +5,8 @@
 import * as CanvasRenderer from './CanvasRenderer';
 import * as LayoutAnimator from './LayoutAnimator';
 
-import * as MathUtils from 'amper-utils/dist2017/mathUtils';
-import { Dimensions, Point, Vector } from 'amper-utils/dist2017/mathUtils';
+import * as MathUtils from 'amper-utils/dist/mathUtils';
+import { Dimensions, Point, Vector } from 'amper-utils/dist/mathUtils';
 
 const WHEEL_SCROLL_TIMEOUT = 300;
 const MIN_THROW_SPEED = 0.1;

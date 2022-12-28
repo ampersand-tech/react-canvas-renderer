@@ -4,7 +4,7 @@
 */
 Object.defineProperty(exports, "__esModule", { value: true });
 var EventUtils = require("./EventUtils");
-var ObjUtils = require("amper-utils/dist2017/objUtils");
+var ObjUtils = require("amper-utils/dist/objUtils");
 var LayoutInput = /** @class */ (function () {
     function LayoutInput() {
         var _this = this;

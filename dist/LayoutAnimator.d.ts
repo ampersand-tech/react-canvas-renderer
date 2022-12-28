@@ -4,8 +4,8 @@
 import { LayoutDrawable } from './LayoutDrawable';
 import { LayoutNode } from './LayoutNode';
 import { LayoutDrawableName, LayoutNodeData } from './LayoutTypes';
-import * as MathUtils from 'amper-utils/dist2017/mathUtils';
-import { Dimensions } from 'amper-utils/dist2017/mathUtils';
+import * as MathUtils from 'amper-utils/dist/mathUtils';
+import { Dimensions } from 'amper-utils/dist/mathUtils';
 interface TickMotivator {
     tick: (dt: number) => boolean;
 }

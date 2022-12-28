@@ -8,10 +8,10 @@ import { fontObj2LegitString } from './FontUtils';
 import { LayoutNode, parseShadow } from './LayoutNode';
 import { ImageCoverType, Margins, BorderRadius, Shadow } from './LayoutTypes';
 
-import * as MathUtils from 'amper-utils/dist2017/mathUtils';
-import { Dimensions, Point } from 'amper-utils/dist2017/mathUtils';
-import * as ObjUtils from 'amper-utils/dist2017/objUtils';
-import { absurd, Stash, StashOf } from 'amper-utils/dist2017/types';
+import * as MathUtils from 'amper-utils/dist/mathUtils';
+import { Dimensions, Point } from 'amper-utils/dist/mathUtils';
+import * as ObjUtils from 'amper-utils/dist/objUtils';
+import { absurd, Stash } from 'amper-utils/dist/types';
 
 interface PendingLoads<T> {
   data: T | undefined;
@@ -24,7 +24,7 @@ const gFontCache: PendingLoads<FontManager> = {
 };
 
 type CachedImage = PendingLoads<HTMLImageElement>;
-const gImageCache: StashOf<CachedImage> = {};
+const gImageCache: Stash<CachedImage> = {};
 
 let gFontTable: FontTable = {
   names: ['"PT Serif", Times, "Times New Roman", serif', '"Montserrat", sans-serif'],

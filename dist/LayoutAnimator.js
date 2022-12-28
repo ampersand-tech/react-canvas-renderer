@@ -5,8 +5,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var CanvasRenderer = require("./CanvasRenderer");
 var LayoutDrawable_1 = require("./LayoutDrawable");
-var MathUtils = require("amper-utils/dist2017/mathUtils");
-var types_1 = require("amper-utils/dist2017/types");
+var MathUtils = require("amper-utils/dist/mathUtils");
+var types_1 = require("amper-utils/dist/types");
 var color = require("color");
 var gTimeAccum = 0;
 var gAnimators = [];

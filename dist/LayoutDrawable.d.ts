@@ -5,8 +5,8 @@ import { PathDesc } from './Constants';
 import { FontManager, FontTable } from './Font';
 import { LayoutNode } from './LayoutNode';
 import { ImageCoverType, Margins, BorderRadius, Shadow } from './LayoutTypes';
-import { Dimensions } from 'amper-utils/dist2017/mathUtils';
-import { Stash } from 'amper-utils/dist2017/types';
+import { Dimensions } from 'amper-utils/dist/mathUtils';
+import { Stash } from 'amper-utils/dist/types';
 interface PendingLoads<T> {
     data: T | undefined;
     nodes: LayoutNode[];

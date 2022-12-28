@@ -17,9 +17,9 @@ var Font_1 = require("./Font");
 var FontUtils_1 = require("./FontUtils");
 var LayoutNode_1 = require("./LayoutNode");
 var LayoutTypes_1 = require("./LayoutTypes");
-var MathUtils = require("amper-utils/dist2017/mathUtils");
-var ObjUtils = require("amper-utils/dist2017/objUtils");
-var types_1 = require("amper-utils/dist2017/types");
+var MathUtils = require("amper-utils/dist/mathUtils");
+var ObjUtils = require("amper-utils/dist/objUtils");
+var types_1 = require("amper-utils/dist/types");
 var gFontCache = {
     data: undefined,
     nodes: [],

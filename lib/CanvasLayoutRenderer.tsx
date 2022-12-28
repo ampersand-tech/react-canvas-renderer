@@ -9,7 +9,7 @@ import { renderToLayout } from './LayoutRenderer';
 import { LayoutParent } from './LayoutTypes';
 import { TouchAndScrollHandlers } from './TouchDispatcher';
 
-import { Point } from 'amper-utils/dist2017/mathUtils';
+import { Point } from 'amper-utils/dist/mathUtils';
 import * as React from 'react';
 
 

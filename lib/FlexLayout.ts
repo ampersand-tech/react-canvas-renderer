@@ -14,9 +14,9 @@ import {
 
 import { applyConstraints, marginSizeForAxis } from './LayoutNode';
 
-import { Dimensions } from 'amper-utils/dist2017/mathUtils';
-import * as ObjUtils from 'amper-utils/dist2017/objUtils';
-import { absurd, Stash } from 'amper-utils/dist2017/types';
+import { Dimensions } from 'amper-utils/dist/mathUtils';
+import * as ObjUtils from 'amper-utils/dist/objUtils';
+import { absurd, Stash } from 'amper-utils/dist/types';
 
 enum Justification {
   Center = 1,

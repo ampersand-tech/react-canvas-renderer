@@ -8,7 +8,7 @@ import * as Font from '../lib/Font';
 import * as LayoutNode from '../lib/LayoutNode';
 import { parseLayout, setTapCallback } from './SimpleLayoutParser';
 
-import { Point, ScreenSpacePoint } from 'amper-utils/dist2017/mathUtils';
+import { Point, ScreenSpacePoint } from 'amper-utils/dist/mathUtils';
 import { expect } from 'chai';
 
 Font.test.stubFontLoading();

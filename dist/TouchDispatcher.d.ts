@@ -4,9 +4,9 @@
 import { ClickFunction, NotifyStateFunction } from './LayoutTypes';
 import { MomentumScroller, TouchLikeEvent } from './MomentumScroller';
 import { SwipeHandler } from './SwipeHandler';
-import * as MathUtils from 'amper-utils/dist2017/mathUtils';
-import { ScreenSpacePoint } from 'amper-utils/dist2017/mathUtils';
-import { Stash, StashOf } from 'amper-utils/dist2017/types';
+import * as MathUtils from 'amper-utils/dist/mathUtils';
+import { ScreenSpacePoint } from 'amper-utils/dist/mathUtils';
+import { Stash } from 'amper-utils/dist/types';
 import * as React from 'react';
 export interface TouchAndScrollHandlers {
     scrollHandler?: MomentumScroller;
@@ -27,7 +27,7 @@ export interface TouchHandler {
     onTouchEnd?: (e: TouchLikeEvent) => void;
     onWheel?: (e: React.WheelEvent<any>) => void;
 }
-export declare function getTouches(e: TouchLikeEvent): StashOf<MathUtils.ScreenSpacePoint>;
+export declare function getTouches(e: TouchLikeEvent): Stash<MathUtils.ScreenSpacePoint>;
 export declare class TouchDispatcher {
     private handlerTree;
     private curTouch;

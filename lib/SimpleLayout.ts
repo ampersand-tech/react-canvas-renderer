@@ -14,8 +14,8 @@ import {
 
 import { marginSizeForAxis } from './LayoutNode';
 
-import { Dimensions } from 'amper-utils/dist2017/mathUtils';
-import { absurd, Stash } from 'amper-utils/dist2017/types';
+import { Dimensions } from 'amper-utils/dist/mathUtils';
+import { absurd, Stash } from 'amper-utils/dist/types';
 
 export class SimpleLayout extends DirectionalLayoutBehavior {
   protected alignItems: Alignment = Alignment.Start;

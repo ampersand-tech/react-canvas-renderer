@@ -15,8 +15,8 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var LayoutTypes_1 = require("./LayoutTypes");
 var LayoutNode_1 = require("./LayoutNode");
-var ObjUtils = require("amper-utils/dist2017/objUtils");
-var types_1 = require("amper-utils/dist2017/types");
+var ObjUtils = require("amper-utils/dist/objUtils");
+var types_1 = require("amper-utils/dist/types");
 var Justification;
 (function (Justification) {
     Justification[Justification["Center"] = 1] = "Center";

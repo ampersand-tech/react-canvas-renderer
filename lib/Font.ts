@@ -4,7 +4,7 @@
 
 import * as FontUtils from './FontUtils';
 
-import { StashOf } from 'amper-utils/dist2017/types';
+import { Stash } from 'amper-utils/dist/types';
 
 const MAX_VALID_FONTS_RETRIES = 200;
 const STRICT_FONT_CHECK_PERCENTAGE = 0.25;
@@ -20,7 +20,7 @@ export interface FontTable {
   names: string[];
   styles: string[];
   weights: number[];
-  fontExpectations: StashOf<StashOf<number>>;
+  fontExpectations: Stash<Stash<number>>;
 }
 
 export interface FontDesc {
@@ -148,7 +148,7 @@ function preloadFontTable(fontTable: FontTable, cb: (valid: boolean) => void) {
 
 export class FontManager {
   private valid: boolean;
-  private fontObjCache: StashOf<FontUtils.FontObject> = {};
+  private fontObjCache: Stash<FontUtils.FontObject> = {};
   private defaultFontFamily: string;
 
   constructor(fontTable: FontTable, cb: (font: FontManager) => void) {

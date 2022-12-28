@@ -4,7 +4,7 @@
 */
 Object.defineProperty(exports, "__esModule", { value: true });
 var EventUtils = require("./EventUtils");
-var MathUtils = require("amper-utils/dist2017/mathUtils");
+var MathUtils = require("amper-utils/dist/mathUtils");
 var SCROLL_DIST_SQR = 25;
 //const HIGHLIGHT_TOUCH_DELAY = 350;
 var DOUBLE_TAP_WAIT = 400; // anything quicker than this in ms is a double tap

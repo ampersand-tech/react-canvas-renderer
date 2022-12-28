@@ -2,7 +2,7 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 
-import { Stash } from 'amper-utils/dist2017/types';
+import { Stash } from 'amper-utils/dist/types';
 import { Parser } from 'xml2js';
 
 export interface ParseObject {
