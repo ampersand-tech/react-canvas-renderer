@@ -11,7 +11,9 @@ interface Props {
     scaleFactor?: number;
     onLayoutUpdate?: (layoutRoot: LayoutNode) => void;
 }
-export declare class CanvasLayoutRenderer extends React.Component<Props, {}> implements LayoutParent {
+export declare class CanvasLayoutRenderer extends React.Component<Props & {
+    children: React.ReactNode;
+}, {}> implements LayoutParent {
     private renderCanvas;
     private layoutRoot;
     componentWillUnmount(): void;

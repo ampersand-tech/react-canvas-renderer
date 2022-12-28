@@ -11,7 +11,7 @@ interface PendingLoads<T> {
     data: T | undefined;
     nodes: LayoutNode[];
 }
-declare type CachedImage = PendingLoads<HTMLImageElement>;
+type CachedImage = PendingLoads<HTMLImageElement>;
 export declare function setFontTable(fontTable: FontTable, cb?: (fontManager: FontManager) => void): FontManager;
 export declare function getFontManager(node?: LayoutNode): FontManager;
 export declare function getImage(url: string, node?: LayoutNode): CachedImage;

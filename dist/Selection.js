@@ -3,6 +3,7 @@
 * Copyright 2018-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.moveTo = exports.moveForward = exports.moveBack = void 0;
 function moveBack(sel, textLen, keys) {
     if (keys.shiftKey) {
         return moveTo(sel, (sel.atStart ? sel.start : sel.end) - 1, textLen, keys);

@@ -3,6 +3,7 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.test = exports.FontManager = exports.getFontKey = exports.defaultFontDesc = void 0;
 var FontUtils = require("./FontUtils");
 var MAX_VALID_FONTS_RETRIES = 200;
 var STRICT_FONT_CHECK_PERCENTAGE = 0.25;

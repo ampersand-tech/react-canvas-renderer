@@ -3,6 +3,7 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fontObj2LegitString = void 0;
 var StyleElements = { fontStyle: 1, fontWeight: 1, fontSizeStr: 1, fontFamily: 1 };
 function fontObj2LegitString(style) {
     var retVal = [];

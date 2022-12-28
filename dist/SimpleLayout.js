@@ -3,16 +3,22 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SimpleLayout = void 0;
 var LayoutTypes_1 = require("./LayoutTypes");
 var LayoutNode_1 = require("./LayoutNode");
 var types_1 = require("amper-utils/dist/types");
@@ -57,7 +63,7 @@ var SimpleLayout = /** @class */ (function (_super) {
             var child = _a[_i];
             var childDims = child.node.getIntrinsicDims();
             if (layout.localDims[this.mainAxis] === undefined) {
-                var mainAxisSize = Math.max(0, childDims[this.mainAxis] + LayoutNode_1.marginSizeForAxis(child.margin, this.mainAxis, 'total'));
+                var mainAxisSize = Math.max(0, childDims[this.mainAxis] + (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.mainAxis, 'total'));
                 if (child.localPos.min[this.mainAxis] !== undefined) {
                     dims[this.mainAxis] = Math.max(dims[this.mainAxis], child.localPos.min[this.mainAxis] + mainAxisSize);
                 }
@@ -68,8 +74,8 @@ var SimpleLayout = /** @class */ (function (_super) {
                     cumSize += mainAxisSize;
                 }
             }
-            var alignment = LayoutTypes_1.itemAlignment(child, this.alignItems, this.crossAxis);
-            var crossAxisMargin = LayoutNode_1.marginSizeForAxis(child.margin, this.crossAxis, alignment === LayoutTypes_1.Alignment.Center ? 'max2' : 'total');
+            var alignment = (0, LayoutTypes_1.itemAlignment)(child, this.alignItems, this.crossAxis);
+            var crossAxisMargin = (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.crossAxis, alignment === LayoutTypes_1.Alignment.Center ? 'max2' : 'total');
             var crossAxisSize = childDims[this.crossAxis] + crossAxisMargin + (child.localPos.min[this.crossAxis] || 0);
             dims[this.crossAxis] = Math.max(dims[this.crossAxis], crossAxisSize);
         }
@@ -102,16 +108,16 @@ var SimpleLayout = /** @class */ (function (_super) {
                 isPositioned = true;
             }
             else {
-                childMainOffset += LayoutNode_1.marginSizeForAxis(child.margin, this.mainAxis, 'start');
-                endMargin = LayoutNode_1.marginSizeForAxis(child.margin, this.mainAxis, 'end');
+                childMainOffset += (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.mainAxis, 'start');
+                endMargin = (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.mainAxis, 'end');
             }
             if (child.localPos.min[this.crossAxis] !== undefined) {
                 childCrossOffset = child.localPos.min[this.crossAxis];
             }
-            var crossAxisMargin = LayoutNode_1.marginSizeForAxis(child.margin, this.crossAxis, 'total');
+            var crossAxisMargin = (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.crossAxis, 'total');
             childConstraints.max[this.mainAxis] = Math.max(0, available - childMainOffset - endMargin);
             childConstraints.max[this.crossAxis] = Math.max(0, crossAxisSize - childCrossOffset - crossAxisMargin);
-            var alignment = LayoutTypes_1.itemAlignment(child, this.alignItems, this.crossAxis);
+            var alignment = (0, LayoutTypes_1.itemAlignment)(child, this.alignItems, this.crossAxis);
             if (alignment === LayoutTypes_1.Alignment.Stretch) {
                 childConstraints.min[this.crossAxis] = crossAxisSize - crossAxisMargin;
             }
@@ -128,14 +134,14 @@ var SimpleLayout = /** @class */ (function (_super) {
                 case LayoutTypes_1.Alignment.Auto:
                 case LayoutTypes_1.Alignment.Start:
                 case LayoutTypes_1.Alignment.Stretch:
-                    child.computedOffset[this.crossAxisPos] = LayoutNode_1.marginSizeForAxis(child.margin, this.crossAxis, 'start');
+                    child.computedOffset[this.crossAxisPos] = (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.crossAxis, 'start');
                     break;
                 case LayoutTypes_1.Alignment.End:
                     child.computedOffset[this.crossAxisPos] =
-                        crossAxisSize - child.renderDims[this.crossAxis] - LayoutNode_1.marginSizeForAxis(child.margin, this.crossAxis, 'end');
+                        crossAxisSize - child.renderDims[this.crossAxis] - (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.crossAxis, 'end');
                     break;
                 default:
-                    types_1.absurd(alignment);
+                    (0, types_1.absurd)(alignment);
             }
             this.applyLocalPos(child, available, crossAxisSize);
             if (!isPositioned) {

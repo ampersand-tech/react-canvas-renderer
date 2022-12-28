@@ -3,6 +3,7 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.debug = exports.LayoutNode = exports.marginSizeForAxis = exports.parseShadow = exports.applyConstraints = void 0;
 var LayoutDrawable_1 = require("./LayoutDrawable");
 var LayoutTypes_1 = require("./LayoutTypes");
 var Constants = require("./Constants");
@@ -63,13 +64,13 @@ function parseShadow(shadowStr, isTextShadow) {
     // Text shadow does not specify spread. For boxshadow it is specified but ignored
     if (isTextShadow) {
         if (splt.length !== 4) {
-            throw new Error("Unhandled text shadow support: (" + shadowStr + ")");
+            throw new Error("Unhandled text shadow support: (".concat(shadowStr, ")"));
         }
         colIdx = 3;
     }
     else {
         if (splt.length !== 5) {
-            throw new Error("Unhandled text shadow support: (" + shadowStr + ")");
+            throw new Error("Unhandled text shadow support: (".concat(shadowStr, ")"));
         }
         colIdx = 4;
     }
@@ -112,7 +113,7 @@ function marginSizeForAxis(margins, axis, which) {
                 return 2 * Math.max(margins.top, margins.bottom);
             }
         default:
-            types_1.absurd(which);
+            (0, types_1.absurd)(which);
             return 0;
     }
 }
@@ -402,7 +403,7 @@ var LayoutNode = /** @class */ (function () {
             alignSelf: LayoutTypes_1.Alignment.Auto,
             color: '',
             alpha: 1,
-            fontDesc: Font_1.defaultFontDesc(),
+            fontDesc: (0, Font_1.defaultFontDesc)(),
             pointerEvents: 'auto',
             overflowX: '',
             overflowY: '',
@@ -1082,14 +1083,11 @@ var LayoutNode = /** @class */ (function () {
     LayoutNode.prototype.getBoundingClientRect = function () {
         this.layoutTreeIfNeeded();
         var offset = this.getScreenOffset();
-        var rect = {
-            left: offset.x,
-            top: offset.y,
-            right: offset.x + this.layout.renderDims.width,
-            bottom: offset.y + this.layout.renderDims.height,
-            width: this.layout.renderDims.width,
-            height: this.layout.renderDims.height,
-        };
+        var rect = new DOMRect();
+        rect.x = offset.x;
+        rect.y = offset.y;
+        rect.width = this.layout.renderDims.width;
+        rect.height = this.layout.renderDims.height;
         return rect;
     };
     LayoutNode.prototype.getClientRects = function () {

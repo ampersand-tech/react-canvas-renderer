@@ -5,7 +5,7 @@ import { FontDesc } from './Font';
 import { LayoutNode } from './LayoutNode';
 import { Dimensions, Point, ScreenSpacePoint } from 'amper-utils/dist/mathUtils';
 import { Stash } from 'amper-utils/dist/types';
-export declare type LayoutDrawableName = 'svg' | 'img' | 'border' | 'backgroundColor' | 'backgroundImage';
+export type LayoutDrawableName = 'svg' | 'img' | 'border' | 'backgroundColor' | 'backgroundImage';
 export interface OptDimensions {
     width?: number;
     height?: number;
@@ -68,17 +68,17 @@ export interface Shadow {
     color: string;
 }
 export declare const AI_LOOKUP: {
-    'center': Alignment;
+    center: Alignment;
     'flex-start': Alignment;
     'flex-end': Alignment;
-    'stretch': Alignment;
+    stretch: Alignment;
 };
 export declare const AS_LOOKUP: {
-    'auto': Alignment;
-    'center': Alignment;
+    auto: Alignment;
+    center: Alignment;
     'flex-start': Alignment;
     'flex-end': Alignment;
-    'stretch': Alignment;
+    stretch: Alignment;
 };
 export interface LayoutParent {
     childIsDirty(child: LayoutNode): any;
@@ -86,8 +86,8 @@ export interface LayoutParent {
     getScreenOffset(includePadding?: boolean): Point;
     getCanvas(): HTMLCanvasElement | undefined;
 }
-export declare type ClickFunction = (point: ScreenSpacePoint) => void;
-export declare type NotifyStateFunction = (state: boolean) => void;
+export type ClickFunction = (point: ScreenSpacePoint) => void;
+export type NotifyStateFunction = (state: boolean) => void;
 export declare class LayoutNodeData {
     node: LayoutNode;
     children: LayoutNodeData[];

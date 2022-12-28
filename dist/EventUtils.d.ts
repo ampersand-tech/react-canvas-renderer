@@ -2,7 +2,7 @@
 * Copyright 2018-present Ampersand Technologies, Inc.
 */
 import * as React from 'react';
-declare type SyntheticEvent = React.SyntheticEvent<any>;
+type SyntheticEvent = React.SyntheticEvent<any>;
 export declare function eventPageX(e: any): {
     x: number;
     y: number;

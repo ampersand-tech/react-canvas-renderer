@@ -3,6 +3,7 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PositionParent = exports.LayoutAnimator = exports.getTimeUntilNextAnimation = exports.removeTickMotivator = exports.addTickMotivator = exports.tickAll = void 0;
 var CanvasRenderer = require("./CanvasRenderer");
 var LayoutDrawable_1 = require("./LayoutDrawable");
 var MathUtils = require("amper-utils/dist/mathUtils");
@@ -105,7 +106,7 @@ var LayoutAnimator = /** @class */ (function () {
         var origFieldValue = this.getOrigFieldValue();
         var fieldValueType = typeof origFieldValue;
         if (fieldValueType !== 'string' && fieldValueType !== 'number' && origFieldValue !== undefined) {
-            throw new Error("Invalid field type \"" + fieldValueType + "\" found for animator");
+            throw new Error("Invalid field type \"".concat(fieldValueType, "\" found for animator"));
         }
         CanvasRenderer.kickRender();
     }
@@ -179,7 +180,7 @@ var LayoutAnimator = /** @class */ (function () {
                 // TODO: loopPeriod for position?
                 break;
             default:
-                types_1.absurd(this.anim.motivator.source);
+                (0, types_1.absurd)(this.anim.motivator.source);
         }
         var uneasyParam = MathUtils.parameterize(this.anim.motivator.start, this.anim.motivator.end, val);
         var newParam = MathUtils.interpEaseClamped(this.anim.motivator.easingFunction, 0, 1, uneasyParam);

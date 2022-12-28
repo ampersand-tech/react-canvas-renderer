@@ -13,7 +13,7 @@ export declare function tickAll(dt: number): boolean;
 export declare function addTickMotivator(motivator: TickMotivator): void;
 export declare function removeTickMotivator(motivator: TickMotivator): void;
 export declare function getTimeUntilNextAnimation(): number;
-export declare type AnimationTargetField = 'color' | 'alpha' | 'offsetX' | 'offsetY' | 'width' | 'height' | 'backgroundColor' | 'backgroundImageScale' | 'imageScale' | 'borderColor';
+export type AnimationTargetField = 'color' | 'alpha' | 'offsetX' | 'offsetY' | 'width' | 'height' | 'backgroundColor' | 'backgroundImageScale' | 'imageScale' | 'borderColor';
 export interface AnimationMotivator {
     source: 'time' | 'screenX' | 'screenY';
     easingFunction: MathUtils.EasingFunction;

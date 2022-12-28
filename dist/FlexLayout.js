@@ -3,16 +3,22 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FlexLayout = void 0;
 var LayoutTypes_1 = require("./LayoutTypes");
 var LayoutNode_1 = require("./LayoutNode");
 var ObjUtils = require("amper-utils/dist/objUtils");
@@ -74,13 +80,13 @@ var FlexLayout = /** @class */ (function (_super) {
         this.flexItems = [];
         for (var _i = 0, _a = layout.children; _i < _a.length; _i++) {
             var child = _a[_i];
-            var alignment = LayoutTypes_1.itemAlignment(child, this.alignItems, this.crossAxis);
+            var alignment = (0, LayoutTypes_1.itemAlignment)(child, this.alignItems, this.crossAxis);
             var childDims = child.node.getIntrinsicDims();
             var flexItem = {
                 srcDims: childDims,
                 dstDims: childDims,
-                mainAxisMargin: LayoutNode_1.marginSizeForAxis(child.margin, this.mainAxis, 'total'),
-                crossAxisMargin: LayoutNode_1.marginSizeForAxis(child.margin, this.crossAxis, alignment === LayoutTypes_1.Alignment.Center ? 'max2' : 'total'),
+                mainAxisMargin: (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.mainAxis, 'total'),
+                crossAxisMargin: (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.crossAxis, alignment === LayoutTypes_1.Alignment.Center ? 'max2' : 'total'),
                 flexGrow: (child.flexProps && child.flexProps.flexGrow) || 0,
                 flexShrink: (child.flexProps && child.flexProps.flexShrink) || 0,
                 flexBasis: (child.flexProps && child.flexProps.flexBasis !== undefined) ? child.flexProps.flexBasis : childDims[this.mainAxis],
@@ -162,7 +168,7 @@ var FlexLayout = /** @class */ (function (_super) {
         for (var i = 0; i < this.flexItems.length; ++i) {
             var child = layout.children[i];
             var item = this.flexItems[i];
-            var alignment = LayoutTypes_1.itemAlignment(child, this.alignItems, this.crossAxis);
+            var alignment = (0, LayoutTypes_1.itemAlignment)(child, this.alignItems, this.crossAxis);
             var childOffset = totalMainAxisOffset;
             switch (i) {
                 case 0:
@@ -181,35 +187,35 @@ var FlexLayout = /** @class */ (function (_super) {
             // layout child
             var childConstraints = ObjUtils.clone(constraints);
             var itemDims = ObjUtils.clone(item.dstDims);
-            LayoutNode_1.applyConstraints(constraints, itemDims);
+            (0, LayoutNode_1.applyConstraints)(constraints, itemDims);
             childConstraints.min[this.mainAxis] = childConstraints.max[this.mainAxis] = itemDims[this.mainAxis];
-            childConstraints.max[this.crossAxis] = crossAxisAvailable - LayoutNode_1.marginSizeForAxis(child.margin, this.crossAxis, 'total');
+            childConstraints.max[this.crossAxis] = crossAxisAvailable - (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.crossAxis, 'total');
             if (alignment === LayoutTypes_1.Alignment.Stretch) {
                 childConstraints.min[this.crossAxis] = childConstraints.max[this.crossAxis];
             }
             child.node.setExternalConstraints(childConstraints);
             child.node.layoutIfNeeded(force);
             // position child
-            childOffset += LayoutNode_1.marginSizeForAxis(child.margin, this.mainAxis, 'start');
+            childOffset += (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.mainAxis, 'start');
             child.computedOffset[this.mainAxisPos] = childOffset;
             childOffset += child.renderDims[this.mainAxis];
-            childOffset += LayoutNode_1.marginSizeForAxis(child.margin, this.mainAxis, 'end');
+            childOffset += (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.mainAxis, 'end');
             totalMainAxisOffset = Math.max(totalMainAxisOffset, childOffset); // deal with negative margins
             switch (alignment) {
                 case LayoutTypes_1.Alignment.Auto:
                 case LayoutTypes_1.Alignment.Start:
                 case LayoutTypes_1.Alignment.Stretch:
-                    child.computedOffset[this.crossAxisPos] = LayoutNode_1.marginSizeForAxis(child.margin, this.crossAxis, 'start');
+                    child.computedOffset[this.crossAxisPos] = (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.crossAxis, 'start');
                     break;
                 case LayoutTypes_1.Alignment.End:
                     child.computedOffset[this.crossAxisPos] =
-                        crossAxisAvailable - child.renderDims[this.crossAxis] - LayoutNode_1.marginSizeForAxis(child.margin, this.crossAxis, 'end');
+                        crossAxisAvailable - child.renderDims[this.crossAxis] - (0, LayoutNode_1.marginSizeForAxis)(child.margin, this.crossAxis, 'end');
                     break;
                 case LayoutTypes_1.Alignment.Center:
                     child.computedOffset[this.crossAxisPos] = (crossAxisAvailable - child.renderDims[this.crossAxis]) * 0.5;
                     break;
                 default:
-                    types_1.absurd(alignment);
+                    (0, types_1.absurd)(alignment);
             }
         }
     };

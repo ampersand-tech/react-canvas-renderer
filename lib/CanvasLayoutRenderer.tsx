@@ -19,7 +19,7 @@ interface Props {
   onLayoutUpdate?: (layoutRoot: LayoutNode) => void;
 }
 
-export class CanvasLayoutRenderer extends React.Component<Props, {}> implements LayoutParent {
+export class CanvasLayoutRenderer extends React.Component<Props & { children: React.ReactNode }, {}> implements LayoutParent {
   private renderCanvas: RenderCanvas | undefined;
   private layoutRoot: LayoutNode | undefined;
 

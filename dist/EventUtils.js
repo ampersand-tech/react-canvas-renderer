@@ -3,6 +3,7 @@
 * Copyright 2018-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.eatEvent = exports.stopPropagation = exports.eventPageX = void 0;
 function isNumber(val) {
     return (typeof val === 'number') && isFinite(val);
 }

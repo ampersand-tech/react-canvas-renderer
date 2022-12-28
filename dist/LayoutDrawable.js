@@ -3,16 +3,22 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ImageDrawable = exports.SVGDrawable = exports.TextDrawable = exports.BorderDrawable = exports.BGColorDrawable = exports.LayoutDrawable = exports.getImage = exports.getFontManager = exports.setFontTable = void 0;
 var Font_1 = require("./Font");
 var FontUtils_1 = require("./FontUtils");
 var LayoutNode_1 = require("./LayoutNode");
@@ -130,7 +136,7 @@ function drawRoundedRect(ctx, borderRadius, drawType, left, top, right, bottom) 
             ctx.clip();
             break;
         default:
-            types_1.absurd(drawType);
+            (0, types_1.absurd)(drawType);
             break;
     }
 }
@@ -310,9 +316,9 @@ var TextDrawable = /** @class */ (function (_super) {
             return false;
         }
         var fontObj = this.fontManager.getFont(this.node.getFontDesc());
-        ctx.font = FontUtils_1.fontObj2LegitString(fontObj);
+        ctx.font = (0, FontUtils_1.fontObj2LegitString)(fontObj);
         if (this.node.style.textShadow) {
-            var shadow = LayoutNode_1.parseShadow(this.node.style.textShadow, true);
+            var shadow = (0, LayoutNode_1.parseShadow)(this.node.style.textShadow, true);
             ctx.shadowBlur = shadow.blur;
             ctx.shadowOffsetX = shadow.offsetX;
             ctx.shadowOffsetY = shadow.offsetY;
@@ -330,7 +336,7 @@ var TextDrawable = /** @class */ (function (_super) {
                 lineY = fontObj.fontMetrics.lineBottom - Math.floor(fontObj.fontMetrics.fontSize * 0.5);
                 break;
             default:
-                types_1.absurd(fontObj.textDecoration);
+                (0, types_1.absurd)(fontObj.textDecoration);
         }
         // draw decoration
         ctx.strokeStyle = ctx.fillStyle;
@@ -497,7 +503,7 @@ var ImageDrawable = /** @class */ (function (_super) {
                     }
                     break;
                 default:
-                    types_1.absurd(this.coverType);
+                    (0, types_1.absurd)(this.coverType);
             }
         }
         srcDims.width /= this.drawScale;
