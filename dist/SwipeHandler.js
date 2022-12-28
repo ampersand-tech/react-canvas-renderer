@@ -5,7 +5,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var CanvasRenderer = require("./CanvasRenderer");
 var LayoutAnimator = require("./LayoutAnimator");
-var MathUtils = require("amper-utils/dist2017/mathUtils");
+var MathUtils = require("amper-utils/dist/mathUtils");
 var SwipeHandler = /** @class */ (function () {
     function SwipeHandler(getScaleFactor, setScaleFactor, minScaleFactor, scaleFactorVelocity) {
         var _this = this;

@@ -5,7 +5,7 @@
 import * as CanvasRenderer from './CanvasRenderer';
 import * as LayoutAnimator from './LayoutAnimator';
 
-import * as MathUtils from 'amper-utils/dist2017/mathUtils';
+import * as MathUtils from 'amper-utils/dist/mathUtils';
 
 export class SwipeHandler {
   private curScaleFactor = 0;

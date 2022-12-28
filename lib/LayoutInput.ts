@@ -4,7 +4,7 @@
 
 import * as EventUtils from './EventUtils';
 
-import * as ObjUtils from 'amper-utils/dist2017/objUtils';
+import * as ObjUtils from 'amper-utils/dist/objUtils';
 
 export interface InputProps {
   getSelectedText?: () => string;

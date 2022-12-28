@@ -34,11 +34,11 @@ import * as LayoutRenderer from './LayoutRenderer';
 import { BorderRadius, Shadow } from './LayoutTypes';
 import { MomentumScroller, ScrollBounds } from './MomentumScroller';
 
-import * as JsonUtils from 'amper-utils/dist2017/jsonUtils';
-import * as MathUtils from 'amper-utils/dist2017/mathUtils';
-import { Dimensions, Point } from 'amper-utils/dist2017/mathUtils';
-import * as ObjUtils from 'amper-utils/dist2017/objUtils';
-import { absurd, Stash, StashOf } from 'amper-utils/dist2017/types';
+import * as JsonUtils from 'amper-utils/dist/jsonUtils';
+import * as MathUtils from 'amper-utils/dist/mathUtils';
+import { Dimensions, Point } from 'amper-utils/dist/mathUtils';
+import * as ObjUtils from 'amper-utils/dist/objUtils';
+import { absurd, Stash } from 'amper-utils/dist/types';
 import * as md5 from 'blueimp-md5';
 import * as QuarkStyles from 'quark-styles';
 
@@ -186,9 +186,9 @@ export class LayoutNode implements LayoutParent {
   private layoutBehavior: LayoutBehavior | undefined;
   private positionParent: PositionParent | undefined;
   private virtualChildren: LayoutNode[] = [];
-  private preContentDrawables: StashOf<LayoutDrawable> = {};
+  private preContentDrawables: Stash<LayoutDrawable> = {};
   private contentDrawables: LayoutDrawable[] = [];
-  private postContentDrawables: StashOf<LayoutDrawable> = {};
+  private postContentDrawables: Stash<LayoutDrawable> = {};
   private animators: LayoutAnimator[] = [];
   private unmountAnimations: AnimationDef[] = [];
   private scroller: MomentumScroller|undefined;
@@ -201,7 +201,7 @@ export class LayoutNode implements LayoutParent {
   private cacheDirty = true;
   private cacheCanvas: HTMLCanvasElement | undefined;
 
-  style: StashOf<string> = {};
+  style: Stash<string> = {};
   private styleHash: string = '';
   private classNames: string[] = [];
   private classNamesHash: string = '';
@@ -387,7 +387,7 @@ export class LayoutNode implements LayoutParent {
     }
   }
 
-  setStyle(style: StashOf<string>, classNames: string[]) {
+  setStyle(style: Stash<string>, classNames: string[]) {
     classNames = classNames.sort();
     const classNamesHash = classNames.join(' ');
     const styleHash = md5(JsonUtils.safeStringify(style));
@@ -411,7 +411,7 @@ export class LayoutNode implements LayoutParent {
     this.applyStyle(style);
   }
 
-  private applyStyle(style: StashOf<string>) {
+  private applyStyle(style: Stash<string>) {
     const layout = {
       localDims: {} as OptDimensions,
       localPos: { min: {}, max: {} } as LayoutConstraints,
@@ -546,8 +546,8 @@ export class LayoutNode implements LayoutParent {
       layout.pointerEvents = style.pointerEvents;
     }
 
-    const preContentDrawables: StashOf<LayoutDrawable> = {};
-    const postContentDrawables: StashOf<LayoutDrawable> = {};
+    const preContentDrawables: Stash<LayoutDrawable> = {};
+    const postContentDrawables: Stash<LayoutDrawable> = {};
 
     let borderRadius: BorderRadius | undefined = undefined;
     if (
@@ -596,7 +596,7 @@ export class LayoutNode implements LayoutParent {
 
     let isDirty = false;
     let hasInheritedChange = false;
-    let inheritedChanges: StashOf<number> = {};
+    let inheritedChanges: Stash<number> = {};
     for (const key in layout) {
       if (!ObjUtils.objCmpFast(layout[key], this.layout[key])) {
         isDirty = true;
@@ -812,7 +812,7 @@ export class LayoutNode implements LayoutParent {
     }
   }
 
-  setInheritedChanges(inheritedChanges: StashOf<number>, isStart: boolean): void {
+  setInheritedChanges(inheritedChanges: Stash<number>, isStart: boolean): void {
     if (!isStart) {
       // First remove any inherited changes that we set ourselves
       let changesToRemove: string[] = [];

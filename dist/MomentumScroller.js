@@ -5,7 +5,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var CanvasRenderer = require("./CanvasRenderer");
 var LayoutAnimator = require("./LayoutAnimator");
-var MathUtils = require("amper-utils/dist2017/mathUtils");
+var MathUtils = require("amper-utils/dist/mathUtils");
 var WHEEL_SCROLL_TIMEOUT = 300;
 var MIN_THROW_SPEED = 0.1;
 var MAX_THROW_SPEED = 3.0;

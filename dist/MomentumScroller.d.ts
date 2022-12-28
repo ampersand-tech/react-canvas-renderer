@@ -2,8 +2,8 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 /// <reference types="react" />
-import * as MathUtils from 'amper-utils/dist2017/mathUtils';
-import { Dimensions, Vector } from 'amper-utils/dist2017/mathUtils';
+import * as MathUtils from 'amper-utils/dist/mathUtils';
+import { Dimensions, Vector } from 'amper-utils/dist/mathUtils';
 export declare type ScrollEvent = 'scrollStart' | 'scroll' | 'scrollStop';
 export declare type TouchLikeEvent = React.TouchEvent<any> | React.MouseEvent<any>;
 export interface ScrollEventData {

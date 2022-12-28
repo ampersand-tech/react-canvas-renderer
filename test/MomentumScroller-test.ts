@@ -4,7 +4,7 @@
 
 import { MomentumScroller, ScrollBounds, ScrollEvent, ScrollEventData } from '../lib/MomentumScroller';
 
-import { Dimensions } from 'amper-utils/dist2017/mathUtils';
+import { Dimensions } from 'amper-utils/dist/mathUtils';
 import * as chai from 'chai';
 
 const expect: any = chai.expect;

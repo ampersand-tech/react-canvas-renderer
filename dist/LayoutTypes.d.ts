@@ -3,8 +3,8 @@
 */
 import { FontDesc } from './Font';
 import { LayoutNode } from './LayoutNode';
-import { Dimensions, Point, ScreenSpacePoint } from 'amper-utils/dist2017/mathUtils';
-import { Stash } from 'amper-utils/dist2017/types';
+import { Dimensions, Point, ScreenSpacePoint } from 'amper-utils/dist/mathUtils';
+import { Stash } from 'amper-utils/dist/types';
 export declare type LayoutDrawableName = 'svg' | 'img' | 'border' | 'backgroundColor' | 'backgroundImage';
 export interface OptDimensions {
     width?: number;

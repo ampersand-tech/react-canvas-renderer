@@ -11,8 +11,8 @@ import { LayoutNode } from './LayoutNode';
 import { Direction, LayoutParent } from './LayoutTypes';
 import { SimpleLayout } from './SimpleLayout';
 
-import { forceArray } from 'amper-utils/dist2017/arrayUtils';
-import { Stash } from 'amper-utils/dist2017/types';
+import { forceArray } from 'amper-utils/dist/arrayUtils';
+import { Stash } from 'amper-utils/dist/types';
 import * as emptyObject from 'fbjs/lib/emptyObject';
 import * as ReactFiberReconciler from 'react-reconciler';
 import * as SafeRaf from 'safe-raf';

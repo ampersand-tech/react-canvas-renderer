@@ -7,9 +7,9 @@ import { ClickFunction, NotifyStateFunction } from './LayoutTypes';
 import { MomentumScroller, TouchLikeEvent } from './MomentumScroller';
 import { SwipeHandler } from './SwipeHandler';
 
-import * as MathUtils from 'amper-utils/dist2017/mathUtils';
-import { ScreenSpacePoint, Vector } from 'amper-utils/dist2017/mathUtils';
-import { Stash, StashOf } from 'amper-utils/dist2017/types';
+import * as MathUtils from 'amper-utils/dist/mathUtils';
+import { ScreenSpacePoint, Vector } from 'amper-utils/dist/mathUtils';
+import { Stash } from 'amper-utils/dist/types';
 import * as React from 'react';
 
 const SCROLL_DIST_SQR = 25;
@@ -50,7 +50,7 @@ export interface TouchHandler {
 // guaranteed to return at least 1 ScreenSpacePoint
 export function getTouches(e: TouchLikeEvent) {
   const touchesIn = (e as React.TouchEvent<any>).touches;
-  const touchesOut: StashOf<ScreenSpacePoint> = {};
+  const touchesOut: Stash<ScreenSpacePoint> = {};
   if (touchesIn && touchesIn.length) {
     for (let i = 0; i < touchesIn.length; ++i) {
       const touch = touchesIn[i];
@@ -99,9 +99,9 @@ class TouchEventState {
   onLongPress?: ClickFunction;
   longPressTimer?: number;
 
-  startTouches: StashOf<ScreenSpacePoint>;
+  startTouches: Stash<ScreenSpacePoint>;
   startPos: ScreenSpacePoint;
-  curTouches: StashOf<ScreenSpacePoint>;
+  curTouches: Stash<ScreenSpacePoint>;
   curTouchID: string;
 
   curDelta = { x: 0, y: 0 } as Vector;

@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var LayoutTypes_1 = require("./LayoutTypes");
 var LayoutNode_1 = require("./LayoutNode");
-var types_1 = require("amper-utils/dist2017/types");
+var types_1 = require("amper-utils/dist/types");
 var SimpleLayout = /** @class */ (function (_super) {
     __extends(SimpleLayout, _super);
     function SimpleLayout() {

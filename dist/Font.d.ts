@@ -2,12 +2,12 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 import * as FontUtils from './FontUtils';
-import { StashOf } from 'amper-utils/dist2017/types';
+import { Stash } from 'amper-utils/dist/types';
 export interface FontTable {
     names: string[];
     styles: string[];
     weights: number[];
-    fontExpectations: StashOf<StashOf<number>>;
+    fontExpectations: Stash<Stash<number>>;
 }
 export interface FontDesc {
     fontFamily: string;
