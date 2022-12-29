@@ -411,8 +411,8 @@ pathval@^1.1.1:
   integrity sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==
 
 "quark-styles@git+ssh://git@github.com:ampersand-tech/quark-styles.git":
-  version "1.0.3"
-  resolved "git+ssh://git@github.com:ampersand-tech/quark-styles.git#4c91780012932757ba79aa022b2ad6bd259ab267"
+  version "2.0.0"
+  resolved "git+ssh://git@github.com:ampersand-tech/quark-styles.git#81998aec9f1b9a69d38179390d2fa5c2a609a1bd"
   dependencies:
     json-stable-stringify "^1.0.1"
     react-deep-force-update "^2.1.3"

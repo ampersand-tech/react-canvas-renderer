@@ -1,6 +1,3 @@
-/**
-* Copyright 2018-present Ampersand Technologies, Inc.
-*/
 import { LayoutNode } from './LayoutNode';
 import { LayoutParent } from './LayoutTypes';
 import { TouchAndScrollHandlers } from './TouchDispatcher';

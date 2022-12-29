@@ -8,6 +8,7 @@ import { TouchAndScrollHandlers, TouchDispatcher, TouchHandlerTree } from './Tou
 
 import { Point, ScreenSpacePoint, rectsMatch } from 'amper-utils/dist/mathUtils';
 import { Stash } from 'amper-utils/dist/types';
+import { q } from 'quark-styles';
 import * as React from 'react';
 import * as SafeRaf from 'safe-raf';
 
@@ -146,7 +147,7 @@ export class RenderCanvas extends React.Component<Props, {}> implements TouchHan
   }
 
   render() {
-    return React.createElement('canvas', {
+    return q('canvas', {
       ref: this.setCanvas,
       style: {touchAction: 'none'},
       classes: this.props.classes,

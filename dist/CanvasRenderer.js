@@ -23,6 +23,7 @@ var Constants_1 = require("./Constants");
 var LayoutAnimator = require("./LayoutAnimator");
 var TouchDispatcher_1 = require("./TouchDispatcher");
 var mathUtils_1 = require("amper-utils/dist/mathUtils");
+var quark_styles_1 = require("quark-styles");
 var React = require("react");
 var SafeRaf = require("safe-raf");
 var BUFFERING_TIMEOUT = 300; // time to wait after last drawing before updating the buffering (which stalls)
@@ -132,7 +133,7 @@ var RenderCanvas = /** @class */ (function (_super) {
         this.props.recordMetric && this.props.recordMetric(metricName, metricDims);
     };
     RenderCanvas.prototype.render = function () {
-        return React.createElement('canvas', {
+        return (0, quark_styles_1.q)('canvas', {
             ref: this.setCanvas,
             style: { touchAction: 'none' },
             classes: this.props.classes,

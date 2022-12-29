@@ -1,7 +1,4 @@
 "use strict";
-/**
-* Copyright 2018-present Ampersand Technologies, Inc.
-*/
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -19,9 +16,15 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CanvasLayoutRenderer = void 0;
+/**
+* Copyright 2018-present Ampersand Technologies, Inc.
+*/
+/** @jsxRuntime classic */
+/** @jsx q */
 var CanvasRenderer_1 = require("./CanvasRenderer");
 var Constants_1 = require("./Constants");
 var LayoutRenderer_1 = require("./LayoutRenderer");
+var quark_styles_1 = require("quark-styles"); // eslint-disable-line @typescript-eslint/no-unused-vars
 var React = require("react");
 var CanvasLayoutRenderer = /** @class */ (function (_super) {
     __extends(CanvasLayoutRenderer, _super);
@@ -127,7 +130,7 @@ var CanvasLayoutRenderer = /** @class */ (function (_super) {
         return this.renderCanvas ? this.renderCanvas.getCanvas() : undefined;
     };
     CanvasLayoutRenderer.prototype.render = function () {
-        return (React.createElement(CanvasRenderer_1.RenderCanvas, { ref: this.setRenderer, classes: this.props.classes, drawFunc: this.draw, getTouchAndScrollHandlersAt: this.getTouchAndScrollHandlersAt }));
+        return ((0, quark_styles_1.q)(CanvasRenderer_1.RenderCanvas, { ref: this.setRenderer, classes: this.props.classes, drawFunc: this.draw, getTouchAndScrollHandlersAt: this.getTouchAndScrollHandlersAt }));
     };
     return CanvasLayoutRenderer;
 }(React.Component));
