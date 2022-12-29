@@ -13,8 +13,8 @@ import { SimpleLayout } from './SimpleLayout';
 
 import { forceArray } from 'amper-utils/dist/arrayUtils';
 import { Stash } from 'amper-utils/dist/types';
-import * as ReactFiberReconciler from 'react-reconciler';
-import * as SafeRaf from 'safe-raf';
+import * as ReactReconciler from 'react-reconciler';
+import { DefaultEventPriority } from 'react-reconciler/constants';
 import React = require('react');
 
 let DEBUG = false;
@@ -22,9 +22,6 @@ let DEBUG = false;
 const RENDERER_VERSION = '1.0';
 
 const UPDATE_SIGNAL = {};
-
-type ScheduledCallback = (arg: {timeRemaining: () => number}) => void;
-let gScheduledCallback: ScheduledCallback | null = null;
 
 function getTextContent(children: any): string | undefined {
   if (typeof children === 'string' || typeof children === 'number') {
@@ -65,6 +62,10 @@ function appendChild(parent: LayoutNode, child: LayoutNode) {
 function removeChild(_parent: LayoutNode, child: LayoutNode) {
   if (DEBUG) { debugger; }
   child.unmount();
+}
+
+function clearContainer(node: LayoutNode) {
+  node.clearChildren();
 }
 
 function getLayoutBehavior(type: string, className: string, text: string|undefined) {
@@ -124,7 +125,35 @@ function convertSvgChildren(incChildren?: React.ReactElement<Stash>[] | React.Re
   return paths.length ? paths : undefined;
 }
 
-const LayoutRenderer = ReactFiberReconciler({
+
+const LayoutHostConfig: ReactReconciler.HostConfig<
+  string, // Type
+  Stash, // Props
+  LayoutNode, // Container
+  LayoutNode, // Instance
+  LayoutNode, // TextInstance
+  LayoutNode, // SuspenseInstance
+  Stash, // HydratableInstance,
+  LayoutNode, // PublicInstance,
+  Stash, // HostContext,
+  {}, // UpdatePayload,
+  unknown, // ChildSet,
+  number, // TimeoutHandle,
+  number // NoTimeout,
+> = {
+  supportsMutation: true,
+  supportsPersistence: false,
+  isPrimaryRenderer: false,
+  supportsHydration: false,
+
+  getCurrentEventPriority() {
+    return DefaultEventPriority;
+  },
+
+  getInstanceFromNode(node: LayoutNode | null | undefined) {
+    return node?.reactFiber;
+  },
+
   shouldSetTextContent(type: string, props: Stash): boolean {
     if (DEBUG) { debugger; }
     if (type === 'svg') {
@@ -230,112 +259,117 @@ const LayoutRenderer = ReactFiberReconciler({
     return UPDATE_SIGNAL;
   },
 
-  shouldDeprioritizeSubtree(_type: string, props: Stash): boolean {
-    return !!props.hidden;
+  prepareForCommit(): Stash|null {
+    return null;
   },
-
-  now: Date.now,
-
-  scheduleDeferredCallback(callback: ScheduledCallback | null) {
-    if (DEBUG) { debugger; }
-    if (gScheduledCallback) {
-      throw new Error('Scheduling a callback twice is excessive. Instead, keep track of whether the callback has already been scheduled.');
-    }
-    gScheduledCallback = callback;
-    SafeRaf.requestAnimationFrame(flushRendering);
-  },
-
-  prepareForCommit(): void {},
 
   resetAfterCommit(): void {},
 
-  mutation: {
-    commitMount(_node: LayoutNode, _type: string, _newProps: Stash): void {
-      // Noop
-      if (DEBUG) { debugger; }
-    },
-
-    commitUpdate(
-      node: LayoutNode,
-      _updatePayload: Object,
-      type: string,
-      oldProps: Stash,
-      newProps: Stash,
-    ): void {
-      if (DEBUG) { debugger; }
-      const newStyle = newProps.style || {};
-
-      if (type === 'img') {
-        const drawable = new ImageDrawable(node, newProps.src);
-        node.setContent([ drawable ]);
-      } else if (type === 'svg') {
-        const drawable = new SVGDrawable(
-          node,
-          newProps.name,
-          newStyle.stroke,
-          newStyle.fill,
-          Number(newProps.width) || 0,
-          Number(newProps.height) || 0,
-          convertSvgChildren(newProps.children),
-        );
-        node.setContent([ drawable ]);
-      }
-
-      const oldText = getTextContent(oldProps.children);
-      const newText = getTextContent(newProps.children);
-      if ((type === 'div' || type === 'span') && (oldText !== newText)) {
-        if (newText) {
-          node.setTextContent(newText);
-        } else {
-          node.setContent([]);
-        }
-      }
-
-      const oldBehavior = getLayoutBehavior(type, oldProps.className || '', oldText);
-      const newBehavior = getLayoutBehavior(type, newProps.className || '', newText);
-      if (oldBehavior !== newBehavior) {
-        node.setLayoutBehavior(createLayoutBehavior(newBehavior));
-      }
-
-      const oldAnims = oldProps['data-anims'] || [];
-      const newAnims = newProps['data-anims'] || [];
-      updateAnimations(node, oldAnims, newAnims);
-
-      node.setUnmountAnimations(newProps['data-unmountAnims'] || []);
-
-      node.setStyle(newStyle, (newProps.className || '').split(' '));
-      node.dataProps = extractDataProps(newProps);
-      node.onClick = newProps.onClick;
-      node.onLongPress = newProps.onLongPress;
-      node.setCacheable(Boolean(newProps['data-cacheable']));
-
-      if (node.input) {
-        node.input.setProps(newProps['data-input']);
-      }
-    },
-
-    commitTextUpdate(
-      node: LayoutNode,
-      _oldText: string,
-      newText: string,
-    ): void {
-      if (DEBUG) { debugger; }
-      node.setTextContent(newText);
-    },
-
-    appendChild: appendChild,
-    appendChildToContainer: appendChild,
-    insertBefore: insertBefore,
-    insertInContainerBefore: insertBefore,
-    removeChild: removeChild,
-    removeChildFromContainer: removeChild,
-
-    resetTextContent(node: LayoutNode): void {
-      if (DEBUG) { debugger; }
-      node.setContent([]);
-    },
+  commitMount(_node: LayoutNode, _type: string, _newProps: Stash): void {
+    // Noop
+    if (DEBUG) { debugger; }
   },
-});
+
+  commitUpdate(
+    node: LayoutNode,
+    _updatePayload: Object,
+    type: string,
+    oldProps: Stash,
+    newProps: Stash,
+  ): void {
+    if (DEBUG) { debugger; }
+    const newStyle = newProps.style || {};
+
+    if (type === 'img') {
+      const drawable = new ImageDrawable(node, newProps.src);
+      node.setContent([ drawable ]);
+    } else if (type === 'svg') {
+      const drawable = new SVGDrawable(
+        node,
+        newProps.name,
+        newStyle.stroke,
+        newStyle.fill,
+        Number(newProps.width) || 0,
+        Number(newProps.height) || 0,
+        convertSvgChildren(newProps.children),
+      );
+      node.setContent([ drawable ]);
+    }
+
+    const oldText = getTextContent(oldProps.children);
+    const newText = getTextContent(newProps.children);
+    if ((type === 'div' || type === 'span') && (oldText !== newText)) {
+      if (newText) {
+        node.setTextContent(newText);
+      } else {
+        node.setContent([]);
+      }
+    }
+
+    const oldBehavior = getLayoutBehavior(type, oldProps.className || '', oldText);
+    const newBehavior = getLayoutBehavior(type, newProps.className || '', newText);
+    if (oldBehavior !== newBehavior) {
+      node.setLayoutBehavior(createLayoutBehavior(newBehavior));
+    }
+
+    const oldAnims = oldProps['data-anims'] || [];
+    const newAnims = newProps['data-anims'] || [];
+    updateAnimations(node, oldAnims, newAnims);
+
+    node.setUnmountAnimations(newProps['data-unmountAnims'] || []);
+
+    node.setStyle(newStyle, (newProps.className || '').split(' '));
+    node.dataProps = extractDataProps(newProps);
+    node.onClick = newProps.onClick;
+    node.onLongPress = newProps.onLongPress;
+    node.setCacheable(Boolean(newProps['data-cacheable']));
+
+    if (node.input) {
+      node.input.setProps(newProps['data-input']);
+    }
+  },
+
+  commitTextUpdate(
+    node: LayoutNode,
+    _oldText: string,
+    newText: string,
+  ): void {
+    if (DEBUG) { debugger; }
+    node.setTextContent(newText);
+  },
+
+  appendChild,
+  appendChildToContainer: appendChild,
+  insertBefore,
+  insertInContainerBefore: insertBefore,
+  removeChild,
+  removeChildFromContainer: removeChild,
+  clearContainer,
+
+  resetTextContent(node: LayoutNode): void {
+    if (DEBUG) { debugger; }
+    node.setContent([]);
+  },
+
+  scheduleTimeout: setTimeout,
+  cancelTimeout: clearTimeout,
+  noTimeout: 0,
+
+  preparePortalMount(): void {},
+
+  beforeActiveInstanceBlur(): void {},
+  afterActiveInstanceBlur(): void {},
+
+  prepareScopeUpdate(_scopeInstance: any, _instance: any): void {},
+  getInstanceFromScope(_scopeInstance: any): null | LayoutNode {
+    return null;
+  },
+
+  detachDeletedInstance(_node: LayoutNode): void {},
+
+};
+
+const LayoutRenderer = ReactReconciler(LayoutHostConfig);
 
 function updateAnimations(node: LayoutNode, oldAnims: AnimationDef[], newAnims: AnimationDef[]) {
   // Cancel all animations with keys that are in the set oldProps - newProps
@@ -388,18 +422,6 @@ export function injectIntoDevTools(isProductionMode: boolean) {
   });
 }
 
-export function flushRendering() {
-  while (gScheduledCallback) {
-    const cb = gScheduledCallback;
-    gScheduledCallback = null;
-    cb!({
-      timeRemaining() {
-        return 999;
-      },
-    });
-  }
-}
-
 export function renderToLayout(
   rootNode: LayoutNode | undefined,
   rootElement: React.ReactNode,
@@ -408,10 +430,9 @@ export function renderToLayout(
 ): LayoutNode {
   if (!rootNode) {
     rootNode = new LayoutNode(new SimpleLayout(Direction.Column));
-    rootNode.reactFiber = LayoutRenderer.createContainer(rootNode);
+    rootNode.reactFiber = LayoutRenderer.createContainer(rootNode, 0, null, false, null, "", () => {}, null);
   }
   LayoutRenderer.updateContainer(rootElement, rootNode.reactFiber, null);
-  flushRendering();
   if (parentNode) {
     rootNode.setParent(parentNode);
   }

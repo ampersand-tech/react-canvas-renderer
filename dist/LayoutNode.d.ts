@@ -58,6 +58,7 @@ export declare class LayoutNode implements LayoutParent {
     removeFromParent(): void;
     addVirtualChild(child: LayoutNode): void;
     removeVirtualChild(child: LayoutNode): void;
+    clearChildren(): void;
     setPositionParent(positionParent: LayoutNode | undefined): void;
     setStyle(style: Stash<string>, classNames: string[]): this;
     private applyPseudoSelectors;
