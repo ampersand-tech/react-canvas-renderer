@@ -1,7 +1,8 @@
 /**
 * Copyright 2018-present Ampersand Technologies, Inc.
 */
-
+/** @jsxRuntime classic */
+/** @jsx q */
 import { RenderCanvas, kickRender } from './CanvasRenderer';
 import { PIXEL_RATIO } from './Constants';
 import { LayoutNode } from './LayoutNode';
@@ -10,6 +11,7 @@ import { LayoutParent } from './LayoutTypes';
 import { TouchAndScrollHandlers } from './TouchDispatcher';
 
 import { Point } from 'amper-utils/dist/mathUtils';
+import { q } from 'quark-styles'; // eslint-disable-line @typescript-eslint/no-unused-vars
 import * as React from 'react';
 
 

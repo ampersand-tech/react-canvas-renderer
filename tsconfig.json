@@ -15,6 +15,7 @@
       "dom"
     ],
     "jsx": "react",
+    "jsxFactory": "q",
     "outDir": "./dist",
     "paths": {
       "*": ["*"]
