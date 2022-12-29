@@ -1,6 +1,6 @@
 {
   "name": "react-canvas-renderer",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Custom React to canvas renderer",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
