@@ -3,7 +3,7 @@
 * Copyright 2017-present Ampersand Technologies, Inc.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.unmountLayoutNode = exports.renderToLayout = exports.flushRendering = exports.injectIntoDevTools = void 0;
+exports.unmountLayoutNode = exports.renderToLayout = exports.injectIntoDevTools = void 0;
 var FlexLayout_1 = require("./FlexLayout");
 var LayoutDrawable_1 = require("./LayoutDrawable");
 var LayoutInput_1 = require("./LayoutInput");
@@ -11,12 +11,11 @@ var LayoutNode_1 = require("./LayoutNode");
 var LayoutTypes_1 = require("./LayoutTypes");
 var SimpleLayout_1 = require("./SimpleLayout");
 var arrayUtils_1 = require("amper-utils/dist/arrayUtils");
-var ReactFiberReconciler = require("react-reconciler");
-var SafeRaf = require("safe-raf");
+var ReactReconciler = require("react-reconciler");
+var constants_1 = require("react-reconciler/constants");
 var DEBUG = false;
 var RENDERER_VERSION = '1.0';
 var UPDATE_SIGNAL = {};
-var gScheduledCallback = null;
 function getTextContent(children) {
     if (typeof children === 'string' || typeof children === 'number') {
         return children.toString();
@@ -57,6 +56,9 @@ function removeChild(_parent, child) {
         debugger;
     }
     child.unmount();
+}
+function clearContainer(node) {
+    node.clearChildren();
 }
 function getLayoutBehavior(type, className, text) {
     if (text) {
@@ -111,7 +113,17 @@ function convertSvgChildren(incChildren) {
     }
     return paths.length ? paths : undefined;
 }
-var LayoutRenderer = ReactFiberReconciler({
+var LayoutHostConfig = {
+    supportsMutation: true,
+    supportsPersistence: false,
+    isPrimaryRenderer: false,
+    supportsHydration: false,
+    getCurrentEventPriority: function () {
+        return constants_1.DefaultEventPriority;
+    },
+    getInstanceFromNode: function (node) {
+        return node === null || node === void 0 ? void 0 : node.reactFiber;
+    },
     shouldSetTextContent: function (type, props) {
         if (DEBUG) {
             debugger;
@@ -185,90 +197,89 @@ var LayoutRenderer = ReactFiberReconciler({
     prepareUpdate: function (_node, _type, _oldProps, _newProps) {
         return UPDATE_SIGNAL;
     },
-    shouldDeprioritizeSubtree: function (_type, props) {
-        return !!props.hidden;
+    prepareForCommit: function () {
+        return null;
     },
-    now: Date.now,
-    scheduleDeferredCallback: function (callback) {
+    resetAfterCommit: function () { },
+    commitMount: function (_node, _type, _newProps) {
+        // Noop
         if (DEBUG) {
             debugger;
         }
-        if (gScheduledCallback) {
-            throw new Error('Scheduling a callback twice is excessive. Instead, keep track of whether the callback has already been scheduled.');
+    },
+    commitUpdate: function (node, _updatePayload, type, oldProps, newProps) {
+        if (DEBUG) {
+            debugger;
         }
-        gScheduledCallback = callback;
-        SafeRaf.requestAnimationFrame(flushRendering);
+        var newStyle = newProps.style || {};
+        if (type === 'img') {
+            var drawable = new LayoutDrawable_1.ImageDrawable(node, newProps.src);
+            node.setContent([drawable]);
+        }
+        else if (type === 'svg') {
+            var drawable = new LayoutDrawable_1.SVGDrawable(node, newProps.name, newStyle.stroke, newStyle.fill, Number(newProps.width) || 0, Number(newProps.height) || 0, convertSvgChildren(newProps.children));
+            node.setContent([drawable]);
+        }
+        var oldText = getTextContent(oldProps.children);
+        var newText = getTextContent(newProps.children);
+        if ((type === 'div' || type === 'span') && (oldText !== newText)) {
+            if (newText) {
+                node.setTextContent(newText);
+            }
+            else {
+                node.setContent([]);
+            }
+        }
+        var oldBehavior = getLayoutBehavior(type, oldProps.className || '', oldText);
+        var newBehavior = getLayoutBehavior(type, newProps.className || '', newText);
+        if (oldBehavior !== newBehavior) {
+            node.setLayoutBehavior(createLayoutBehavior(newBehavior));
+        }
+        var oldAnims = oldProps['data-anims'] || [];
+        var newAnims = newProps['data-anims'] || [];
+        updateAnimations(node, oldAnims, newAnims);
+        node.setUnmountAnimations(newProps['data-unmountAnims'] || []);
+        node.setStyle(newStyle, (newProps.className || '').split(' '));
+        node.dataProps = extractDataProps(newProps);
+        node.onClick = newProps.onClick;
+        node.onLongPress = newProps.onLongPress;
+        node.setCacheable(Boolean(newProps['data-cacheable']));
+        if (node.input) {
+            node.input.setProps(newProps['data-input']);
+        }
     },
-    prepareForCommit: function () { },
-    resetAfterCommit: function () { },
-    mutation: {
-        commitMount: function (_node, _type, _newProps) {
-            // Noop
-            if (DEBUG) {
-                debugger;
-            }
-        },
-        commitUpdate: function (node, _updatePayload, type, oldProps, newProps) {
-            if (DEBUG) {
-                debugger;
-            }
-            var newStyle = newProps.style || {};
-            if (type === 'img') {
-                var drawable = new LayoutDrawable_1.ImageDrawable(node, newProps.src);
-                node.setContent([drawable]);
-            }
-            else if (type === 'svg') {
-                var drawable = new LayoutDrawable_1.SVGDrawable(node, newProps.name, newStyle.stroke, newStyle.fill, Number(newProps.width) || 0, Number(newProps.height) || 0, convertSvgChildren(newProps.children));
-                node.setContent([drawable]);
-            }
-            var oldText = getTextContent(oldProps.children);
-            var newText = getTextContent(newProps.children);
-            if ((type === 'div' || type === 'span') && (oldText !== newText)) {
-                if (newText) {
-                    node.setTextContent(newText);
-                }
-                else {
-                    node.setContent([]);
-                }
-            }
-            var oldBehavior = getLayoutBehavior(type, oldProps.className || '', oldText);
-            var newBehavior = getLayoutBehavior(type, newProps.className || '', newText);
-            if (oldBehavior !== newBehavior) {
-                node.setLayoutBehavior(createLayoutBehavior(newBehavior));
-            }
-            var oldAnims = oldProps['data-anims'] || [];
-            var newAnims = newProps['data-anims'] || [];
-            updateAnimations(node, oldAnims, newAnims);
-            node.setUnmountAnimations(newProps['data-unmountAnims'] || []);
-            node.setStyle(newStyle, (newProps.className || '').split(' '));
-            node.dataProps = extractDataProps(newProps);
-            node.onClick = newProps.onClick;
-            node.onLongPress = newProps.onLongPress;
-            node.setCacheable(Boolean(newProps['data-cacheable']));
-            if (node.input) {
-                node.input.setProps(newProps['data-input']);
-            }
-        },
-        commitTextUpdate: function (node, _oldText, newText) {
-            if (DEBUG) {
-                debugger;
-            }
-            node.setTextContent(newText);
-        },
-        appendChild: appendChild,
-        appendChildToContainer: appendChild,
-        insertBefore: insertBefore,
-        insertInContainerBefore: insertBefore,
-        removeChild: removeChild,
-        removeChildFromContainer: removeChild,
-        resetTextContent: function (node) {
-            if (DEBUG) {
-                debugger;
-            }
-            node.setContent([]);
-        },
+    commitTextUpdate: function (node, _oldText, newText) {
+        if (DEBUG) {
+            debugger;
+        }
+        node.setTextContent(newText);
     },
-});
+    appendChild: appendChild,
+    appendChildToContainer: appendChild,
+    insertBefore: insertBefore,
+    insertInContainerBefore: insertBefore,
+    removeChild: removeChild,
+    removeChildFromContainer: removeChild,
+    clearContainer: clearContainer,
+    resetTextContent: function (node) {
+        if (DEBUG) {
+            debugger;
+        }
+        node.setContent([]);
+    },
+    scheduleTimeout: setTimeout,
+    cancelTimeout: clearTimeout,
+    noTimeout: 0,
+    preparePortalMount: function () { },
+    beforeActiveInstanceBlur: function () { },
+    afterActiveInstanceBlur: function () { },
+    prepareScopeUpdate: function (_scopeInstance, _instance) { },
+    getInstanceFromScope: function (_scopeInstance) {
+        return null;
+    },
+    detachDeletedInstance: function (_node) { },
+};
+var LayoutRenderer = ReactReconciler(LayoutHostConfig);
 function updateAnimations(node, oldAnims, newAnims) {
     // Cancel all animations with keys that are in the set oldProps - newProps
     for (var _i = 0, oldAnims_1 = oldAnims; _i < oldAnims_1.length; _i++) {
@@ -317,25 +328,12 @@ function injectIntoDevTools(isProductionMode) {
     });
 }
 exports.injectIntoDevTools = injectIntoDevTools;
-function flushRendering() {
-    while (gScheduledCallback) {
-        var cb = gScheduledCallback;
-        gScheduledCallback = null;
-        cb({
-            timeRemaining: function () {
-                return 999;
-            },
-        });
-    }
-}
-exports.flushRendering = flushRendering;
 function renderToLayout(rootNode, rootElement, parentNode, dataProps) {
     if (!rootNode) {
         rootNode = new LayoutNode_1.LayoutNode(new SimpleLayout_1.SimpleLayout(LayoutTypes_1.Direction.Column));
-        rootNode.reactFiber = LayoutRenderer.createContainer(rootNode);
+        rootNode.reactFiber = LayoutRenderer.createContainer(rootNode, 0, null, false, null, "", function () { }, null);
     }
     LayoutRenderer.updateContainer(rootElement, rootNode.reactFiber, null);
-    flushRendering();
     if (parentNode) {
         rootNode.setParent(parentNode);
     }

@@ -237,18 +237,9 @@ var LayoutNode = /** @class */ (function () {
             LayoutRenderer.unmountLayoutNode(this);
             this.reactFiber = undefined;
         }
-        for (var _i = 0, _a = this.layout.children; _i < _a.length; _i++) {
-            var child = _a[_i];
-            child.node.destructor();
-        }
-        this.layout.children = [];
-        for (var _b = 0, _c = this.virtualChildren; _b < _c.length; _b++) {
-            var vChild = _c[_b];
-            vChild.unmount(true);
-        }
-        this.virtualChildren = [];
-        for (var _d = 0, _e = this.animators; _d < _e.length; _d++) {
-            var animator = _e[_d];
+        this.clearChildren();
+        for (var _i = 0, _a = this.animators; _i < _a.length; _i++) {
+            var animator = _a[_i];
             animator.destructor();
         }
         this.animators = [];
@@ -357,6 +348,18 @@ var LayoutNode = /** @class */ (function () {
         if (idx >= 0) {
             this.virtualChildren.splice(idx, 1);
         }
+    };
+    LayoutNode.prototype.clearChildren = function () {
+        for (var _i = 0, _a = this.layout.children; _i < _a.length; _i++) {
+            var child = _a[_i];
+            child.node.destructor();
+        }
+        this.layout.children = [];
+        for (var _b = 0, _c = this.virtualChildren; _b < _c.length; _b++) {
+            var vChild = _c[_b];
+            vChild.unmount(true);
+        }
+        this.virtualChildren = [];
     };
     LayoutNode.prototype.setPositionParent = function (positionParent) {
         if (this.positionParent) {

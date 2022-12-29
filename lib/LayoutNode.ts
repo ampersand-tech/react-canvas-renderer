@@ -234,15 +234,7 @@ export class LayoutNode implements LayoutParent {
       this.reactFiber = undefined;
     }
 
-    for (const child of this.layout.children) {
-      child.node.destructor();
-    }
-    this.layout.children = [];
-
-    for (const vChild of this.virtualChildren) {
-      vChild.unmount(true);
-    }
-    this.virtualChildren = [];
+    this.clearChildren();
 
     for (const animator of this.animators) {
       animator.destructor();
@@ -368,6 +360,18 @@ export class LayoutNode implements LayoutParent {
     if (idx >= 0) {
       this.virtualChildren.splice(idx, 1);
     }
+  }
+
+  clearChildren() {
+    for (const child of this.layout.children) {
+      child.node.destructor();
+    }
+    this.layout.children = [];
+
+    for (const vChild of this.virtualChildren) {
+      vChild.unmount(true);
+    }
+    this.virtualChildren = [];
   }
 
   setPositionParent(positionParent: LayoutNode|undefined) {
