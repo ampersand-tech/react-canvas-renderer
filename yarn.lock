@@ -113,13 +113,13 @@ acorn@^8.4.1:
   integrity sha512-7zFpHzhnqYKrkYdUjF1HI1bzd0VygEGX8lFk4k5zVMqHEoES+P+7TKI+EvLO9WVMJ8eekdO0aDEK044xTXwPPA==
 
 "amper-utils@git+ssh://git@github.com/ampersand-tech/amper-utils.git":
-  version "1.1.1"
-  uid "843d7e7a279fbcbf4ebee796d8be68be63ee8b57"
-  resolved "git+ssh://git@github.com/ampersand-tech/amper-utils.git#843d7e7a279fbcbf4ebee796d8be68be63ee8b57"
+  version "1.2.0"
+  uid "91aff27757f626c671d72967e52fcc3ab238d5fb"
+  resolved "git+ssh://git@github.com/ampersand-tech/amper-utils.git#91aff27757f626c671d72967e52fcc3ab238d5fb"
 
 "amper-utils@git+ssh://git@github.com:ampersand-tech/amper-utils.git":
-  version "1.1.1"
-  resolved "git+ssh://git@github.com:ampersand-tech/amper-utils.git#843d7e7a279fbcbf4ebee796d8be68be63ee8b57"
+  version "1.2.0"
+  resolved "git+ssh://git@github.com:ampersand-tech/amper-utils.git#91aff27757f626c671d72967e52fcc3ab238d5fb"
 
 arg@^4.1.0:
   version "4.1.3"
@@ -438,8 +438,8 @@ react@^18.2.0:
     loose-envify "^1.1.0"
 
 "safe-raf@git+ssh://git@github.com:ampersand-tech/safe-raf.git":
-  version "1.1.0"
-  resolved "git+ssh://git@github.com:ampersand-tech/safe-raf.git#1d5776e3d48761ee52850fb43604898b24aae707"
+  version "1.1.1"
+  resolved "git+ssh://git@github.com:ampersand-tech/safe-raf.git#09a6d56e049925750e2d114233a65fd5380aa373"
   dependencies:
     amper-utils "git+ssh://git@github.com/ampersand-tech/amper-utils.git"
 
