@@ -100,7 +100,7 @@ var CanvasLayoutRenderer = /** @class */ (function (_super) {
         this.layoutRoot && this.layoutRoot.destructor();
         this.layoutRoot = undefined;
     };
-    CanvasLayoutRenderer.prototype.componentWillMount = function () {
+    CanvasLayoutRenderer.prototype.UNSAFE_componentWillMount = function () {
         this.renderLayout();
     };
     CanvasLayoutRenderer.prototype.componentDidUpdate = function () {

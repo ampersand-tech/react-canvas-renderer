@@ -14,7 +14,7 @@ export declare class CanvasLayoutRenderer extends React.Component<Props & {
     private renderCanvas;
     private layoutRoot;
     componentWillUnmount(): void;
-    componentWillMount(): void;
+    UNSAFE_componentWillMount(): void;
     componentDidUpdate(): void;
     private renderLayout;
     childIsDirty(_child: LayoutNode): void;

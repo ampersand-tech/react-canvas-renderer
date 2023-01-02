@@ -30,7 +30,7 @@ export class CanvasLayoutRenderer extends React.Component<Props & { children: Re
     this.layoutRoot = undefined;
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.renderLayout();
   }
 
