@@ -1,9 +1,9 @@
 {
   "name": "react-canvas-renderer",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Custom React to canvas renderer",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/CanvasRenderer.js",
+  "types": "dist/CanvasRenderer.d.ts",
   "scripts": {
     "build": "./node_modules/.bin/tsc",
     "test": "mocha -r ts-node/register test/**/*-test.ts"
